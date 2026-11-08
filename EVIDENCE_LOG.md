@@ -16,4 +16,5 @@
 | 2026-11-08T19:57:22Z | Flattened metadata includes complete MOS, attributes, scene fields, and EXIF columns | EXECUTION_VERIFIED | Read all 11,125 CSV rows and 35 columns; no nulls | `evidence/spaq_qalign_join_audit.json` |
 | 2026-11-08T19:57:22Z | One exposure-time value is a material outlier (`1,000,000`) | EXECUTION_VERIFIED | Row `03461.jpg`; next maximum is `0.5`; raw workbook validation pending | `evidence/spaq_qalign_join_audit.json` plus targeted query |
 | 2026-11-08T19:58:25Z | Kaggle remote execution unavailable in current auth state | EXECUTION_VERIFIED | Kaggle CLI 2.2.5 `kernels list -m` returned `Authentication required` | `STATE.json` |
+| 2026-11-08T19:58:25Z | G0 repository bootstrap checkpoint committed | EXECUTION_VERIFIED | Git commit `2297c0539e14056182f40dbbada4054b79bbb5ea` | Git history |
 

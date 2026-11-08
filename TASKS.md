@@ -5,7 +5,7 @@ Legend: `TODO`, `IN_PROGRESS`, `DONE`, `FAILED`, `BLOCKED`, `NOT_APPLICABLE`. Ev
 ## Phase 0 — repository and source audit
 
 - [x] **G0-001 DONE** Read controlling documents and audit primary papers/repositories/data endpoints. Evidence: `docs/SOURCE_AUDIT.md`, pinned SHAs in `EVIDENCE_LOG.md`.
-- [ ] **G0-002 IN_PROGRESS** Create repository, durable state ledger, test runner skeleton, and initial clean commit. Evidence target: Git commit.
+- [x] **G0-002 DONE** Create repository, durable state ledger, test runner skeleton, and initial clean commit. Evidence: commit `2297c0539e14056182f40dbbada4054b79bbb5ea`.
 - [x] **G0-003 DONE** Probe Python/Git/GPU/GitHub/Kaggle without exposing secrets. Evidence: `EVIDENCE_LOG.md`; Kaggle CLI 2.2.5 installed, auth absent.
 
 ## Phase 1 — data and provenance

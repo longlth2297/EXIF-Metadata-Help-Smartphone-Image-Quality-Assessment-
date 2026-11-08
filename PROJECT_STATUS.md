@@ -2,8 +2,8 @@
 
 **Updated UTC:** 2026-11-08T19:58:25Z  
 **Phase:** Phase 1 — data acquisition and verified data contract (G1)  
-**Last successful gate:** G0 (local bootstrap/source audit; initial commit pending)  
-**Git commit / remote:** repository initialized; initial commit pending / NONE  
+**Last successful gate:** G0  
+**Git commit / remote:** `2297c0539e14056182f40dbbada4054b79bbb5ea` / NONE  
 **Kaggle kernel/version/status:** NONE / Kaggle CLI 2.2.5 installed, authentication absent
 
 ## Current objective

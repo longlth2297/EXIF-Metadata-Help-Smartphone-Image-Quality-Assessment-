@@ -1,7 +1,7 @@
 # SESSION HANDOFF
 
 **Updated UTC:** 2026-11-08T19:58:25Z  
-**Repo path/commit:** `D:\HCMUS\Year2\Scientific Method\SC\spaq-exif-robustness` / initial commit pending  
+**Repo path/commit:** `D:\HCMUS\Year2\Scientific Method\SC\spaq-exif-robustness` / `2297c0539e14056182f40dbbada4054b79bbb5ea`  
 **Most advanced completed gate:** G0  
 **Active Kaggle kernel/version/status:** NONE / BLOCKED_ON_USER_AUTH  
 **Last valid checkpoint:** NONE
@@ -10,7 +10,7 @@
 
 - Read all controlling local documents and both research reports.
 - Verified the handoff package hashes against its manifest.
-- Initialized the project repository and durable progress ledger; initial commit still pending.
+- Initialized the project repository and durable progress ledger; committed the G0/recovery milestone.
 - Installed Kaggle CLI 2.2.5; account probe proves auth is absent.
 - Downloaded and verified Q-Align `spaq.tar`: 11,125 readable JPEGs, no annotations or embedded EXIF.
 - Retrieved pinned IQA-PyTorch metadata and matched all 11,125 rows to archive filenames with no orphans/collisions.
