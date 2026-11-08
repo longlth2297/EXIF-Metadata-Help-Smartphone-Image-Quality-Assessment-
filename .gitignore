@@ -1,0 +1,32 @@
+# Credentials and local environment
+.env
+.venv/
+venv/
+**/kaggle.json
+*.token
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+*.egg-info/
+
+# Raw/derived data and large artifacts
+data/raw/
+data/external/
+data/interim/
+data/processed/*.parquet
+artifacts/checkpoints/
+artifacts/kaggle_download/
+artifacts/runs/
+*.pt
+*.pth
+*.ckpt
+*.tar
+*.zip
+
+# Keep directory markers and small evidence files
+!.gitkeep
+

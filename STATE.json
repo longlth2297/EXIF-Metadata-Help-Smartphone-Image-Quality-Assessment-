@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "project": "spaq-exif-robustness",
+  "phase": "PHASE_1",
+  "gate": "G1",
+  "last_successful_gate": "G0",
+  "current_task_id": "G1-002",
+  "git_commit": null,
+  "git_remote": null,
+  "data_manifest_sha256": "17d4eaedeff3c2724b8f6fee9f9dbfef65ac8824bd31b774760d86b53a719e8f",
+  "active_kaggle_kernel": null,
+  "active_kaggle_version": null,
+  "active_kaggle_status": "BLOCKED_ON_USER_AUTH",
+  "active_run_id": null,
+  "last_valid_checkpoint": null,
+  "outstanding_blockers": [
+    "Kaggle CLI 2.2.5 is installed but authentication has not been established",
+    "GitHub CLI is not installed; no private remote exists"
+  ],
+  "next_command": "Finish downloading and list author-recommended spaq.tgz; compare original annotation workbooks to flattened metadata",
+  "last_updated_utc": "2026-11-08T19:58:25Z"
+}
+
