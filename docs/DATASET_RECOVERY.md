@@ -30,3 +30,11 @@ The original Google Drive folder returns HTTP 404. In `h4nwei/SPAQ` issue #38, o
 
 The EXIF data gate remains open until real images, MOS, and usable EXIF rows are matched using observed identifiers with coverage and collision checks. Missing annotation types will not be synthesized.
 
+## Duplicate and leakage audit
+
+Every JPEG payload in the Q-Align archive was SHA-256 hashed. There are 322 exact duplicate groups, each containing two filenames. These are not duplicate annotation rows: 321 pairs have different MOS values and all 322 differ in at least one subjective quality or scene field. Conversely, all eight EXIF-derived columns are identical within every exact pair. The Q-Align train/test field separates 103 exact pairs, and the ten legacy 80/20 fields separate 86--120 pairs each. Those inherited splits are therefore rejected for this study. The project split must treat each exact pair as a single group.
+
+The 64-bit dHash audit also produced 747 non-exact candidate pairs within Hamming distance four. dHash collisions can be visually unrelated, so these candidates are not automatically declared duplicates; representative visual review and/or a stronger feature audit is required before adding them to grouping constraints.
+
+Evidence: `evidence/q_align_duplicate_audit.json` and `evidence/q_align_duplicate_label_audit.json`.
+

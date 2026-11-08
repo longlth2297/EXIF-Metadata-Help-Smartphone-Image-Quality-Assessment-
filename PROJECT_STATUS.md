@@ -1,9 +1,9 @@
 # PROJECT STATUS
 
-**Updated UTC:** 2026-11-08T19:58:25Z  
+**Updated UTC:** 2026-11-08T20:05:51Z
 **Phase:** Phase 1 — data acquisition and verified data contract (G1)  
 **Last successful gate:** G0  
-**Git commit / remote:** `2297c0539e14056182f40dbbada4054b79bbb5ea` / NONE  
+**Git commit / remote:** `b5ab1ab967c5573b4e07683a73b4e99eb86392a6` / NONE
 **Kaggle kernel/version/status:** NONE / Kaggle CLI 2.2.5 installed, authentication absent
 
 ## Current objective
@@ -21,6 +21,7 @@ Verify SPAQ images and original annotations, establish a trustworthy row-level c
 - The archive contains exactly 11,125 unique, readable JPEGs and no annotation files; none contains embedded EXIF.
 - IQA-PyTorch's pinned metadata release has 11,125 unique SPAQ rows with MOS, attributes, scene annotations, EXIF-derived columns, and no nulls.
 - Exact filename join between that CSV and Q-Align archive is 11,125/11,125 with no orphans or collisions.
+- A full byte-hash audit found 322 exact duplicate pairs (644 files). All 322 have conflicting annotation fields; 321 have different MOS, while all eight EXIF-derived fields agree within every pair. The inherited Q-Align split separates 103 pairs, so it is not acceptable for this project.
 
 ## Current task
 
@@ -40,12 +41,14 @@ DATA CONTRACT IS PROVISIONALLY MATCHED BUT G1 IS NOT YET CLOSED. NO TRAINING OR 
 
 1. Complete, hash, and list `chaofengc/IQA-PyTorch-Datasets/spaq.tgz` without extraction.
 2. Verify original annotation schemas/rows against the flattened CSV and resolve the exposure-time outlier.
-3. Freeze a 70/10/20 project split only after duplicate and group-risk audit.
+3. Freeze a 70/10/20 project split with every exact-duplicate pair assigned as one group; visually audit non-exact dHash candidates before deciding whether to group them.
 
 ## Relevant evidence and file paths
 
 - `evidence/q_align_spaq_archive.json`
 - `evidence/spaq_qalign_join_audit.json`
+- `evidence/q_align_duplicate_audit.json`
+- `evidence/q_align_duplicate_label_audit.json`
 - `docs/DATASET_RECOVERY.md`
 - `docs/SOURCE_AUDIT.md`
 - `EVIDENCE_LOG.md`

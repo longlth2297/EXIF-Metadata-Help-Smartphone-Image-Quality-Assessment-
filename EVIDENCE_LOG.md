@@ -17,4 +17,6 @@
 | 2026-11-08T19:57:22Z | One exposure-time value is a material outlier (`1,000,000`) | EXECUTION_VERIFIED | Row `03461.jpg`; next maximum is `0.5`; raw workbook validation pending | `evidence/spaq_qalign_join_audit.json` plus targeted query |
 | 2026-11-08T19:58:25Z | Kaggle remote execution unavailable in current auth state | EXECUTION_VERIFIED | Kaggle CLI 2.2.5 `kernels list -m` returned `Authentication required` | `STATE.json` |
 | 2026-11-08T19:58:25Z | G0 repository bootstrap checkpoint committed | EXECUTION_VERIFIED | Git commit `2297c0539e14056182f40dbbada4054b79bbb5ea` | Git history |
+| 2026-11-08T20:05:51Z | Q-Align SPAQ contains 322 byte-identical image pairs | EXECUTION_VERIFIED | Full SHA-256 per-image audit: 644 files in 322 size-two groups | `evidence/q_align_duplicate_audit.json` |
+| 2026-11-08T20:05:51Z | Exact duplicates have conflicting subjective labels and inherited split leakage | EXECUTION_VERIFIED | 321/322 pairs differ in MOS (mean absolute difference 7.75, maximum 31.66); all pairs agree on all EXIF fields; Q-Align split separates 103 pairs | `evidence/q_align_duplicate_label_audit.json` |
 

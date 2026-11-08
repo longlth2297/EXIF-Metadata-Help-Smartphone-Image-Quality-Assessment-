@@ -1,7 +1,7 @@
 # SESSION HANDOFF
 
-**Updated UTC:** 2026-11-08T19:58:25Z  
-**Repo path/commit:** `D:\HCMUS\Year2\Scientific Method\SC\spaq-exif-robustness` / `2297c0539e14056182f40dbbada4054b79bbb5ea`  
+**Updated UTC:** 2026-11-08T20:05:51Z
+**Repo path/commit:** `D:\HCMUS\Year2\Scientific Method\SC\spaq-exif-robustness` / `b5ab1ab967c5573b4e07683a73b4e99eb86392a6`
 **Most advanced completed gate:** G0  
 **Active Kaggle kernel/version/status:** NONE / BLOCKED_ON_USER_AUTH  
 **Last valid checkpoint:** NONE
@@ -14,6 +14,7 @@
 - Installed Kaggle CLI 2.2.5; account probe proves auth is absent.
 - Downloaded and verified Q-Align `spaq.tar`: 11,125 readable JPEGs, no annotations or embedded EXIF.
 - Retrieved pinned IQA-PyTorch metadata and matched all 11,125 rows to archive filenames with no orphans/collisions.
+- Hashed every Q-Align image and identified 322 exact duplicate pairs. All pairs conflict on at least one subjective field, 321 conflict on MOS, all agree on EXIF, and 103 cross the Q-Align train/test boundary.
 
 ## Last operation, command and result
 
@@ -36,6 +37,7 @@
 1. Poll the active `spaq.tgz` download; resume with `curl -C -` if interrupted.
 2. Hash and list the archive without extraction; locate original annotation workbooks.
 3. Cross-check workbook schemas/rows and then run duplicate/group-risk audit before freezing splits.
+4. Keep each exact duplicate pair in one split; do not reuse any inherited split column.
 
 ## Warnings
 
