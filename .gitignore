@@ -21,6 +21,7 @@ data/external/
 data/interim/
 data/processed/*.parquet
 artifacts/checkpoints/
+artifacts/features/
 artifacts/kaggle_download/
 artifacts/runs/
 *.pt
