@@ -19,4 +19,9 @@
 | 2026-11-08T19:58:25Z | G0 repository bootstrap checkpoint committed | EXECUTION_VERIFIED | Git commit `2297c0539e14056182f40dbbada4054b79bbb5ea` | Git history |
 | 2026-11-08T20:05:51Z | Q-Align SPAQ contains 322 byte-identical image pairs | EXECUTION_VERIFIED | Full SHA-256 per-image audit: 644 files in 322 size-two groups | `evidence/q_align_duplicate_audit.json` |
 | 2026-11-08T20:05:51Z | Exact duplicates have conflicting subjective labels and inherited split leakage | EXECUTION_VERIFIED | 321/322 pairs differ in MOS (mean absolute difference 7.75, maximum 31.66); all pairs agree on all EXIF fields; Q-Align split separates 103 pairs | `evidence/q_align_duplicate_label_audit.json` |
+| 2026-11-08T20:27:24Z | Author-recommended SPAQ archive integrity and structure verified | EXECUTION_VERIFIED | 34,841,101,349 bytes; SHA-256 `54e0cb49...7418f7`; 11,125 unique JPEGs; three XLSX files; 35,476,869,087 uncompressed bytes | `evidence/iqa_pytorch_spaq_archive.json` |
+| 2026-11-08T20:27:16Z | Original workbooks reproduce flattened annotations exactly | EXECUTION_VERIFIED | 11,125 IDs; zero identifier/value mismatches across 24 columns | `evidence/spaq_original_workbook_audit.json` |
+| 2026-11-08T20:33:01Z | Embedded EXIF provenance verified for every original image | EXECUTION_VERIFIED | 11,125 JPEGs; brightness observed 8,546 / author-estimated 2,579; compared exposures all match | `evidence/spaq_embedded_exif_audit.json` |
+| 2026-11-08T20:34:45Z | Canonical manifest and group-safe split frozen | EXECUTION_VERIFIED | 11,125 rows; SHA-256 `abff8b1a...5800d`; 7,786/1,111/2,228 split; zero edge crossings; 10 tests pass | `data/manifest.parquet`, `evidence/spaq_manifest_audit.json` |
+| 2026-11-08T20:35:43Z | Supported local CUDA environment works | EXECUTION_VERIFIED | Python 3.12.10, torch 2.14.1+cu130, torchvision 0.29.1+cu130; RTX 4050 matrix multiplication completed | `PROJECT_STATUS.md` |
 

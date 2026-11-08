@@ -10,13 +10,13 @@ Legend: `TODO`, `IN_PROGRESS`, `DONE`, `FAILED`, `BLOCKED`, `NOT_APPLICABLE`. Ev
 
 ## Phase 1 — data and provenance
 
-- [ ] **G1-001 IN_PROGRESS** Retrieve SPAQ images and authentic annotations. Q-Align images and IQA-PyTorch flattened metadata obtained; author-recommended original archive download active. Evidence: `docs/DATASET_RECOVERY.md`.
-- [ ] **G1-002 IN_PROGRESS** Hash assets; audit schemas, joins, EXIF provenance, duplicates, and terms. Current: 11,125/11,125 join, no nulls/collisions; 322 exact duplicate pairs verified and label-audited; raw workbook cross-check pending. Evidence: `evidence/q_align_spaq_archive.json`, `evidence/spaq_qalign_join_audit.json`, `evidence/q_align_duplicate_label_audit.json`.
-- [ ] **G1-003 TODO** Freeze leakage-audited splits and validate loader. Exact duplicate pairs must remain grouped because inherited splits leak 86--120 pairs depending on split column. Depends on G1-002.
+- [x] **G1-001 DONE** Retrieved both compact and author-recommended archives; verified hashes, 11,125 original images, and three authentic workbooks. Evidence: `evidence/q_align_spaq_archive.json`, `evidence/iqa_pytorch_spaq_archive.json`.
+- [x] **G1-002 DONE** Audited schemas, joins, embedded EXIF, per-field provenance, duplicates, terms, and preprocessing differences. Evidence: `evidence/spaq_original_workbook_audit.json`, `evidence/spaq_embedded_exif_audit.json`, `data/provenance.json`.
+- [x] **G1-003 DONE** Frozen seed-20261109 group-safe split; 1,069 candidate edges cross zero partitions. Manifest SHA-256 `abff8b1a...5800d`; contract tests pass. Evidence: `data/manifest.parquet`, `evidence/spaq_split_seed20261109_audit.json`.
 
 ## Phase 2 — vertical slice and compute smoke
 
-- [ ] **G2-001 TODO** Run real-image forward/backward/checkpoint/reload/evaluation vertical slice and required unit tests. Depends on G1.
+- [ ] **G2-001 IN_PROGRESS** Run real-image forward/backward/checkpoint/reload/evaluation vertical slice and required unit tests. Ten data/metric/mask/split tests pass; model slice pending.
 - [ ] **G2-002 BLOCKED** Run Kaggle smoke with GPU, 300-sample timing, 20 train steps, VRAM, checkpoint resume, output retrieval, and runtime projection. Blocker: CLI/auth not yet established. Runnable preparation proceeds offline.
 
 ## Phase 3 — matched baselines

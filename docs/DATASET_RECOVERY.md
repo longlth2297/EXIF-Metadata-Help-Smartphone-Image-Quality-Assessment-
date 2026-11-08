@@ -13,7 +13,7 @@ The original Google Drive folder returns HTTP 404. In `h4nwei/SPAQ` issue #38, o
 - Hugging Face linked ETag: `d312242f10af983d5ceaac433c76b7c2b3473e2a2f87782f9db8ee1537dc2194`
 - Downloaded SHA-256: `d312242f10af983d5ceaac433c76b7c2b3473e2a2f87782f9db8ee1537dc2194`
 - Members: one directory plus 11,125 unique `.jpg` files; no tables or other files.
-- Status: archive integrity and member count verified; full image readability/dimension/embedded-EXIF audit in progress.
+- Status: archive integrity and all-image readability verified. It contains 11,125 downsampled/re-encoded JPEGs, no annotations, and no embedded EXIF.
 - License warning: the repository card says MIT, but this does not establish that underlying SPAQ images or annotations are MIT-licensed.
 
 ## Candidate B — author-recommended `spaq.tgz`
@@ -25,10 +25,22 @@ The original Google Drive folder returns HTTP 404. In `h4nwei/SPAQ` issue #38, o
 - Hugging Face linked ETag: `54e0cb49dc8359f9293e746d452d8b12ec653056c9b12a4f97798a984c7418f7`
 - Repository card license: CC-BY-SA-4.0; applicability to every underlying SPAQ asset still requires caution.
 - Local D: drive free before download: 227,981,836,288 bytes. The archive will be listed without extraction first. It is not suitable for Kaggle's documented 20 GB saved working directory as a monolithic uploaded/extracted asset.
+- Downloaded bytes and SHA-256 exactly match the advertised object. Streaming inspection found 11,125 unique `SPAQ/TestImage/NNNNN.jpg` members, three workbooks, and 35,476,869,087 uncompressed file bytes. Full extraction was not performed.
+- Five sampled originals have full-resolution pixels and embedded EXIF; matching Q-Align files are smaller, re-encoded, typically orientation-applied variants with EXIF removed. Exact filenames still provide a verified 11,125/11,125 key join.
+
+## Original annotation and EXIF verification
+
+The archive contains `MOS and Image attribute scores.xlsx`, `Scene category labels.xlsx`, and `EXIF_tags.xlsx`. Reconstructing the first 24 columns of the IQA-PyTorch metadata mirror produced zero identifier and zero value mismatches over all 11,125 rows.
+
+`EXIF_tags.xlsx` has `Source EXIF tags` and `APEX EXIF tags` sheets. The official demo consumes the eight APEX values. The APEX sheet's fourth and fifth headers are semantically reversed: observed values and the paper's equations show `Sensitivity vaue` carries scene brightness while `Brightness value` carries ISO sensitivity. The canonical manifest renames them explicitly.
+
+A second streaming pass read embedded EXIF from every original JPEG. Scene brightness is observed in 8,546 rows and author-estimated in 2,579, matching the paper's missing-manufacturer-brightness caveat. `03461.jpg` has source exposure `1,000,000` and non-finite embedded exposure; it is retained and marked invalid, never corrected or represented as measured. The author APEX shutter value remains a distinct traceable field.
+
+Completed artifacts: `data/manifest.parquet`, `data/provenance.json`, `evidence/spaq_original_workbook_audit.json`, `evidence/spaq_embedded_exif_audit.json`, and `evidence/spaq_manifest_audit.json`.
 
 ## Gate rule
 
-The EXIF data gate remains open until real images, MOS, and usable EXIF rows are matched using observed identifiers with coverage and collision checks. Missing annotation types will not be synthesized.
+The EXIF data gate closed after real images, MOS, APEX features, source values, and embedded provenance were matched across all 11,125 exact filenames. Missing/estimated fields remain explicit; no annotation is synthesized.
 
 ## Duplicate and leakage audit
 

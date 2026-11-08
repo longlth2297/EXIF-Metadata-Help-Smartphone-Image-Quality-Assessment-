@@ -15,3 +15,5 @@ IQA-PyTorch is pinned at `d47b7ac72ed25388371d0b637076c125cdb95a3c` and uses Pol
 ## Distribution policy
 
 Git tracks code, schemas, hashes, aggregate audits, configs, and small evidence. It does not track raw SPAQ images, raw workbooks, credentials, or third-party checkpoints.
+
+The author-recommended archive was verified but not fully extracted. Its 35,476,869,087 uncompressed bytes exceed Kaggle's documented 20 GB saved working allowance, so remote execution will use the compact verified image variant joined to the canonical manifest. This is a declared preprocessing difference from the original full-resolution archive.
