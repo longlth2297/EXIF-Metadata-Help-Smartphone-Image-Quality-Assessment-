@@ -16,12 +16,12 @@ Legend: `TODO`, `IN_PROGRESS`, `DONE`, `FAILED`, `BLOCKED`, `NOT_APPLICABLE`. Ev
 
 ## Phase 2 — vertical slice and compute smoke
 
-- [ ] **G2-001 IN_PROGRESS** Run real-image forward/backward/checkpoint/reload/evaluation vertical slice and required unit tests. Ten data/metric/mask/split tests pass; model slice pending.
+- [x] **G2-001 DONE** Ran 16-image ResNet-50 forward/backward, 20 updates, atomic checkpoint, bit-exact reload evaluation, optimizer resume, and four-image overfit sanity; 12 tests pass. Evidence: `evidence/g2_vertical_slice.json`, `evidence/g2_tiny_overfit.json`.
 - [ ] **G2-002 BLOCKED** Run Kaggle smoke with GPU, 300-sample timing, 20 train steps, VRAM, checkpoint resume, output retrieval, and runtime projection. Blocker: CLI/auth not yet established. Runnable preparation proceeds offline.
 
 ## Phase 3 — matched baselines
 
-- [ ] **G3-001 TODO** Execute E0 image-only training and persist predictions/checkpoint/logs.
+- [ ] **G3-001 IN_PROGRESS** Execute E0 image-only training and persist predictions/checkpoint/logs. Frozen split and local measured CUDA path are ready.
 - [ ] **G3-002 TODO** Execute matched E1 additive EXIF training and persist artifacts.
 
 ## Phase 4 — controlled extensions

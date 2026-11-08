@@ -1,14 +1,14 @@
 # PROJECT STATUS
 
-**Updated UTC:** 2026-11-08T20:35:43Z
-**Phase:** Phase 2 — minimum vertical slice and compute smoke (G2)
-**Last successful gate:** G1
-**Git commit / remote:** `a07407879426af1ece25bcfb68ffea5669b6b66d` / NONE
+**Updated UTC:** 2026-11-08T20:45:03Z
+**Phase:** Phase 3 — matched baselines (G3)
+**Last successful gate:** G2
+**Git commit / remote:** `575093c63a7ed23218c89d5c8f146b4ee9568cba` / NONE
 **Kaggle kernel/version/status:** NONE / Kaggle CLI 2.2.5 installed, authentication absent
 
 ## Current objective
 
-Run the 16-real-image forward/backward/checkpoint/reload/evaluation slice, then package the measured Kaggle smoke runner and execute it when authentication is available.
+Train the one-seed E0 image-only baseline on the frozen split, select only by validation metrics, then run matched E1 additive EXIF.
 
 ## Execution-verified achievements
 
@@ -27,11 +27,14 @@ Run the 16-real-image forward/backward/checkpoint/reload/evaluation slice, then 
 - Embedded EXIF was audited for all originals: scene brightness is observed for 8,546 rows and author-estimated for 2,579.
 - The frozen split groups all 1,069 repeated-content edges: 7,786/1,111/2,228 rows and zero edge crossings.
 - Canonical `data/manifest.parquet` has 11,125 rows and SHA-256 `abff8b1a...5800d`.
-- Python 3.12.10/PyTorch 2.14.1+cu130 completed a CUDA operation on the RTX 4050; ten tests pass.
+- Python 3.12.10/PyTorch 2.14.1+cu130 completed a CUDA operation on the RTX 4050.
+- The 16-image ResNet-50 slice completed 20 updates, bit-exact checkpoint reload, optimizer resume, and step-21 checkpoint with 1.20 GB peak allocation.
+- Four-image overfit sanity reduced L1 from 54.29 to 1.49 (minimum 0.17) over 200 updates. Twelve tests pass.
+- A standalone Kaggle smoke runner is ready; remote execution remains `BLOCKED_ON_USER_AUTH`.
 
 ## Current task
 
-- G2-001: extract the verified compact image variant and run the real-image vertical slice with checkpoint reload and predictions.
+- G3-001: train and evaluate the one-seed E0 image-only baseline without tuning on test.
 
 ## Actual blockers
 
@@ -40,13 +43,13 @@ Run the 16-real-image forward/backward/checkpoint/reload/evaluation slice, then 
 
 ## Observed results
 
-G1 IS EXECUTION-VERIFIED AND CLOSED. NO MODEL TRAINING RESULT EXISTS YET; only a CUDA arithmetic smoke has run.
+G2 IS EXECUTION-VERIFIED LOCALLY. SANITY METRICS ARE NOT BASELINE RESULTS. KAGGLE REMOTE SMOKE IS AUTH-BLOCKED.
 
 ## Next actions
 
-1. Extract the 2.63 GB Q-Align image archive locally and validate the canonical loader against real images.
-2. Run 16-image forward/backward/checkpoint/reload/evaluation plus tiny-overfit sanity.
-3. Prepare the idempotent Kaggle smoke bundle and retain `BLOCKED_ON_USER_AUTH` until OAuth succeeds.
+1. Implement E0 epoch training, validation-only checkpoint selection, resume, and final test prediction export.
+2. Run one complete local E0 seed and derive an end-to-end runtime projection.
+3. Execute the packaged Kaggle smoke immediately after OAuth becomes available; do not duplicate a running version.
 
 ## Relevant evidence and file paths
 
@@ -58,6 +61,8 @@ G1 IS EXECUTION-VERIFIED AND CLOSED. NO MODEL TRAINING RESULT EXISTS YET; only a
 - `evidence/spaq_original_workbook_audit.json`
 - `evidence/spaq_embedded_exif_audit.json`
 - `evidence/spaq_manifest_audit.json`
+- `evidence/g2_vertical_slice.json`
+- `evidence/g2_tiny_overfit.json`
 - `docs/DATASET_RECOVERY.md`
 - `docs/SOURCE_AUDIT.md`
 - `EVIDENCE_LOG.md`

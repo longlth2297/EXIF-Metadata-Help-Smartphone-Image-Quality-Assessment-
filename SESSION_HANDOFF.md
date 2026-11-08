@@ -1,8 +1,8 @@
 # SESSION HANDOFF
 
-**Updated UTC:** 2026-11-08T20:35:43Z
-**Repo path/commit:** `D:\HCMUS\Year2\Scientific Method\SC\spaq-exif-robustness` / `a07407879426af1ece25bcfb68ffea5669b6b66d`
-**Most advanced completed gate:** G1
+**Updated UTC:** 2026-11-08T20:45:03Z
+**Repo path/commit:** `D:\HCMUS\Year2\Scientific Method\SC\spaq-exif-robustness` / `575093c63a7ed23218c89d5c8f146b4ee9568cba`
+**Most advanced completed gate:** G2
 **Active Kaggle kernel/version/status:** NONE / BLOCKED_ON_USER_AUTH  
 **Last valid checkpoint:** NONE
 
@@ -19,10 +19,13 @@
 - Proved exact 11,125-row workbook/mirror equality and audited embedded EXIF for every original JPEG.
 - Froze the repeated-content-grouped split and built `data/manifest.parquet` with observed/estimated masks.
 - Installed `.venv312`; local RTX 4050 CUDA operation and 10 tests pass.
+- Extracted all 11,125 compact images and ran the 16-image/20-step ResNet-50 vertical slice with atomic checkpoint, bit-exact reload, optimizer resume, and 1.20 GB peak allocation.
+- Four-image overfit sanity reduced L1 from 54.29 to 1.49 (minimum 0.17) in 200 steps; 12 tests pass.
+- Packaged a standalone Kaggle smoke runner; remote execution remains blocked only on user OAuth/private dataset attachment.
 
 ## Last operation, command and result
 
-- Last operation: built canonical manifest SHA-256 `abff8b1a5f7d2e74d0c8874655fbe40d5e75de75bf61e65753c7085cee15800d` and passed 10 tests.
+- Last operation: completed four-image overfit sanity and persisted checkpoint/prediction hashes in `evidence/g2_tiny_overfit.json`.
 
 ## Failed/blocked steps
 
@@ -39,10 +42,9 @@
 
 ## Exact next commands
 
-1. Extract `data/raw/q_align/spaq.tar` to ignored local storage.
-2. Run the 16-image model vertical slice using `.venv312`.
-3. Persist checkpoint/reload proof, predictions, metrics, timing, GPU peak memory, and hashes.
-4. Package Kaggle smoke runner; authentication remains `BLOCKED_ON_USER_AUTH`.
+1. Implement the E0 epoch trainer with validation-only model selection and deterministic resume.
+2. Train one complete E0 seed locally, export validation/test predictions, and record runtime.
+3. Run matched E1 after E0 succeeds; keep Kaggle state `BLOCKED_ON_USER_AUTH` until OAuth.
 
 ## Warnings
 

@@ -4,6 +4,7 @@
 .venv*/
 venv/
 **/kaggle.json
+kaggle/kernel/kernel-metadata.json
 *.token
 
 # Python

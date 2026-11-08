@@ -24,4 +24,7 @@
 | 2026-11-08T20:33:01Z | Embedded EXIF provenance verified for every original image | EXECUTION_VERIFIED | 11,125 JPEGs; brightness observed 8,546 / author-estimated 2,579; compared exposures all match | `evidence/spaq_embedded_exif_audit.json` |
 | 2026-11-08T20:34:45Z | Canonical manifest and group-safe split frozen | EXECUTION_VERIFIED | 11,125 rows; SHA-256 `abff8b1a...5800d`; 7,786/1,111/2,228 split; zero edge crossings; 10 tests pass | `data/manifest.parquet`, `evidence/spaq_manifest_audit.json` |
 | 2026-11-08T20:35:43Z | Supported local CUDA environment works | EXECUTION_VERIFIED | Python 3.12.10, torch 2.14.1+cu130, torchvision 0.29.1+cu130; RTX 4050 matrix multiplication completed | `PROJECT_STATUS.md` |
+| 2026-11-08T20:42:28Z | Real-image model vertical slice and checkpoint resume succeeded | EXECUTION_VERIFIED | ResNet-50, 16 SPAQ images, 20 updates in 2.98 s; 1.20 GB peak; checkpoint predictions bit-exact after reload; step 21 resumed | `evidence/g2_vertical_slice.json` |
+| 2026-11-08T20:43:26Z | Tiny real-image subset can overfit | EXECUTION_VERIFIED | Four images, 200 updates; L1 54.29 to 1.49 (minimum 0.17); SRCC 1.0 is resubstitution sanity only | `evidence/g2_tiny_overfit.json` |
+| 2026-11-08T20:45:03Z | Kaggle smoke is packaged but remote execution remains auth-blocked | EXECUTION_VERIFIED | Standalone runner records 300-image IO/inference, 20 steps, GPU/disk/VRAM, checkpoint/reload; CLI still reports authentication required | `kaggle/kernel/run_smoke.py`, `STATE.json` |
 
