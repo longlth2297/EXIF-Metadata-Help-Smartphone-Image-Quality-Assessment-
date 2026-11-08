@@ -34,7 +34,7 @@ The EXIF data gate remains open until real images, MOS, and usable EXIF rows are
 
 Every JPEG payload in the Q-Align archive was SHA-256 hashed. There are 322 exact duplicate groups, each containing two filenames. These are not duplicate annotation rows: 321 pairs have different MOS values and all 322 differ in at least one subjective quality or scene field. Conversely, all eight EXIF-derived columns are identical within every exact pair. The Q-Align train/test field separates 103 exact pairs, and the ten legacy 80/20 fields separate 86--120 pairs each. Those inherited splits are therefore rejected for this study. The project split must treat each exact pair as a single group.
 
-The 64-bit dHash audit also produced 747 non-exact candidate pairs within Hamming distance four. dHash collisions can be visually unrelated, so these candidates are not automatically declared duplicates; representative visual review and/or a stronger feature audit is required before adding them to grouping constraints.
+The 64-bit dHash audit also produced 747 non-exact candidate pairs within Hamming distance four. Representative review at every distance 0--4 found repeated scene captures with changed exposure/focus, including a distance-three pair with a 68.47 MOS difference. The project therefore conservatively uses the complete 1,069-edge graph (exact and non-exact candidates) as grouping constraints. Connected components are indivisible; see `evidence/near_duplicate_visual_review.md`. This policy may merge a rare false-positive candidate but prevents the repeated-scene leakage actually observed in the reviewed pairs.
 
 Evidence: `evidence/q_align_duplicate_audit.json` and `evidence/q_align_duplicate_label_audit.json`.
 

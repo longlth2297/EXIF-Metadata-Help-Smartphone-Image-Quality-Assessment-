@@ -1,6 +1,7 @@
 # Credentials and local environment
 .env
 .venv/
+.venv*/
 venv/
 **/kaggle.json
 *.token
