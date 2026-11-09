@@ -47,7 +47,7 @@ def main() -> None:
         "e0_frozen_r50_s20261109.json", "e1_frozen_r50_s20261109.json",
         "e2_frozen_r50_s20261109.json", "e3_frozen_r50_s20261109.json",
         "e4_frozen_r50_s20261109.json", "missingness_all_s20261109.json",
-        "analysis_summary_s20261109.json",
+        "analysis_summary_s20261109.json", "kaggle_smoke_v2.json",
     ]
     checks["evidence_status"] = {}
     for name in evidence_names:
@@ -66,6 +66,17 @@ def main() -> None:
             raise AssertionError(f"Analysis output hash mismatch: {relative}")
         verified_outputs[relative] = observed
     checks["verified_analysis_outputs"] = len(verified_outputs)
+
+    kaggle = json.loads((ROOT / "evidence" / "kaggle_smoke_v2.json").read_text())
+    kaggle_output_root = ROOT / "artifacts" / "kaggle_download" / "v2"
+    verified_kaggle_outputs = {}
+    for name, expected in kaggle["downloaded_artifacts"].items():
+        path = kaggle_output_root / name
+        observed = sha256(path)
+        if observed != expected:
+            raise AssertionError(f"Kaggle output hash mismatch: {name}")
+        verified_kaggle_outputs[name] = observed
+    checks["verified_kaggle_outputs"] = verified_kaggle_outputs
 
     ignored_targets = [
         "data/raw/q_align/spaq.tar",

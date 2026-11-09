@@ -1,9 +1,9 @@
 # SESSION HANDOFF
 
-**Updated UTC:** 2026-11-09T07:15:53Z
-**Repo path/commit:** `D:\HCMUS\Year2\Scientific Method\SC\spaq-exif-robustness` / `dd0161c075c325777399379b939403bb4e8e21be`
-**Most advanced completed gate:** G6_LOCAL
-**Active Kaggle kernel/version/status:** `longltrnhong/spaq-exif-robustness-smoke` / v1 / RUNNING  
+**Updated UTC:** 2026-11-09T07:28:45Z
+**Repo path/commit:** `D:\HCMUS\Year2\Scientific Method\SC\spaq-exif-robustness` / `57b3ee3dc5a352fea19a9441332a6e78d2db896e`
+**Most advanced completed gate:** G6
+**Active Kaggle kernel/version/status:** `longltrnhong/spaq-exif-robustness-smoke` / v2 / COMPLETE
 **Last valid checkpoint:** `artifacts/runs/e2_frozen_r50_s20261109/best.pt`
 
 ## Verified completed tasks
@@ -11,7 +11,7 @@
 - Read all controlling local documents and both research reports.
 - Verified the handoff package hashes against its manifest.
 - Initialized the project repository and durable progress ledger; committed the G0/recovery milestone.
-- Installed Kaggle CLI 2.2.5; account probe proves auth is absent.
+- Installed Kaggle CLI 2.2.5 and established OAuth for `longltrnhong`.
 - Downloaded and verified Q-Align `spaq.tar`: 11,125 readable JPEGs, no annotations or embedded EXIF.
 - Retrieved pinned IQA-PyTorch metadata and matched all 11,125 rows to archive filenames with no orphans/collisions.
 - Hashed every Q-Align image and identified 322 exact duplicate pairs. All pairs conflict on at least one subjective field, 321 conflict on MOS, all agree on EXIF, and 103 cross the Q-Align train/test boundary.
@@ -21,7 +21,7 @@
 - Installed `.venv312`; local RTX 4050 CUDA operation and 10 tests pass.
 - Extracted all 11,125 compact images and ran the 16-image/20-step ResNet-50 vertical slice with atomic checkpoint, bit-exact reload, optimizer resume, and 1.20 GB peak allocation.
 - Four-image overfit sanity reduced L1 from 54.29 to 1.49 (minimum 0.17) in 200 steps; 12 tests pass.
-- Packaged a standalone Kaggle smoke runner; remote execution remains blocked only on user OAuth/private dataset attachment.
+- Packaged and executed the standalone Kaggle smoke runner against a private verified dataset.
 - Extracted one verified 11,125x2,048 frozen ResNet-50 cache and ran E0/E1/E3 with identical split, seed, visual features, budget, and validation-only checkpoint selection.
 - E1 improves test SRCC by 0.00565 and MAE by 0.1547 over E0 in this one seed. E3 is below E1 at full metadata.
 - Evaluated 0/25/50/100% record-level metadata missingness with five fixed stochastic masks at 25/50%; E3 dropout gives no measured robustness advantage.
@@ -30,16 +30,17 @@
 - Completed 10,000-resample paired inference: E1-E0 SRCC delta 0.00565 [0.00132, 0.01013]; all E2-E1 metric intervals cross zero.
 - Completed train-defined high-ISO (n=235), long-exposure (n=316), and night-scene (n=191) analysis, deterministic top-error audit, and seven hashed figures.
 - Completed README, experiment report, Kaggle runbook, acceptance audit, and automated release validation. Sixteen tests and dependency checks pass.
-- Established Kaggle OAuth; uploaded the verified compact dataset privately. Kaggle expanded the tar into 11,125 images, so the runner was adapted to verify a deterministic whole-tree hash. GPU kernel v1 is running.
+- Established Kaggle OAuth and uploaded the verified compact dataset privately. Kaggle expanded the tar into 11,125 images; v2 verifies the deterministic tree hash of the exact 300-image smoke sample.
+- Kaggle v1 timed out during the overly broad full-tree integrity scan. Controlled v2 verified the exact 300-image smoke sample, completed on Tesla T4, and produced downloaded/hash-verified checkpoint, summary, and log artifacts.
 
 ## Last operation, command and result
 
-- Last operation: submitted Kaggle GPU smoke v1; latest observed status is `KernelWorkerStatus.RUNNING`.
+- Last operation: downloaded Kaggle v2 outputs to `artifacts/kaggle_download/v2`; checkpoint SHA-256 `a7c69a6e...b487f` matches the remote summary.
 
 ## Failed/blocked steps
 
 - `python --version` resolves to a nonfunctional Windows Store alias; use `py`.
-- `gh` is absent. Kaggle auth is absent; user OAuth is required before remote smoke execution.
+- `gh` is absent and no Git remote exists; publication is optional.
 - Source row `03461.jpg` contains exposure `1,000,000`, while embedded exposure is invalid/non-finite. Never invent a replacement; retain the author's distinct APEX shutter value with provenance.
 
 ## Data provenance and frozen split references
@@ -51,9 +52,9 @@
 
 ## Exact next commands
 
-1. Poll `.\.venv\Scripts\kaggle.exe kernels status longltrnhong/spaq-exif-robustness-smoke`.
-2. On completion, download to `artifacts/kaggle_download/v1`, verify summary/checkpoint, and update ledgers.
-3. If desired, install/authenticate `gh` and create a private remote.
+1. No required research work remains.
+2. If desired, install/authenticate `gh` and create a private remote.
+3. Keep Kaggle dataset/kernel private unless visibility change is explicitly requested.
 
 ## Warnings
 

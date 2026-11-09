@@ -72,9 +72,9 @@ foreach ($e in "E0","E1","E2","E3","E4") {
 
 E0-E4 use validation SRCC for early stopping and open the test set only for final prediction. Configs, checkpoints, logs, and per-image predictions are retained under ignored `artifacts/runs/`; hashes are in tracked evidence JSON.
 
-## Kaggle status
+## Kaggle execution
 
-The standalone smoke kernel is ready but has not run remotely because Kaggle authentication is absent. This is an external blocker, not a successful run. After user OAuth, follow [KAGGLE_RUNBOOK.md](docs/KAGGLE_RUNBOOK.md). Do not commit credentials or claim local RTX evidence as Kaggle evidence.
+Private kernel `longltrnhong/spaq-exif-robustness-smoke` version 2 completed on a Tesla T4. It verified the frozen manifest and exact 300-image smoke sample, measured 11.09 seconds for inference and 2.39 seconds for 20 training steps, used 580 MB peak allocated GPU memory, and passed checkpoint reload plus optimizer resume. Retrieved artifact hashes are in `evidence/kaggle_smoke_v2.json`; credentials and large outputs remain ignored.
 
 ## Repository map
 
@@ -91,5 +91,5 @@ The standalone smoke kernel is ready but has not run remotely because Kaggle aut
 - Frozen, downsampled/re-encoded visual inputs; not a faithful SPAQ end-to-end reproduction.
 - No defensible device-OOD claim: raw make/model aliases do not form a clean 66-phone identifier.
 - Capture-condition subgroups are exploratory and overlap.
-- Kaggle remote smoke is blocked on OAuth; no kernel ID/version exists.
+- Kaggle smoke establishes execution readiness, not a second training seed or an end-to-end reproduction of the original SPAQ model.
 - TOPIQ is a related Q1 reference, not an executed matched comparator because protocol/checkpoint overlap would make the comparison misleading.

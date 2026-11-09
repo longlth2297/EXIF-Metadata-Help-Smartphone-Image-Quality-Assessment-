@@ -41,4 +41,6 @@
 | 2026-11-09T04:50:05Z | Local G6 release validation passed | EXECUTION_VERIFIED | Frozen manifest/hash/counts/group isolation, seven evidence statuses, ten analysis hashes, ignore policy, required docs, 16 tests, and dependency check pass | `evidence/release_validation.json`, `docs/ACCEPTANCE_AUDIT.md` |
 | 2026-11-09T07:15:53Z | Kaggle OAuth and private dataset setup succeeded | EXECUTION_VERIFIED | CLI lists authenticated account `longltrnhong`; dataset status `ready`; manifest plus 11,125 expanded images visible | `longltrnhong/spaq-compact-verified`; CLI output |
 | 2026-11-09T07:15:53Z | Kaggle GPU smoke v1 submitted | EXECUTION_VERIFIED | Kernel version 1 pushed with GPU enabled and private verified dataset attached; current status RUNNING | `longltrnhong/spaq-exif-robustness-smoke` |
+| 2026-11-09T07:28:45Z | Kaggle smoke v1 failed cleanly at explicit timeout | EXECUTION_VERIFIED | Status `CANCEL_ACKNOWLEDGED`; full 11,125-file mount hash exceeded 600 seconds and produced no output | Kernel v1 status/log query |
+| 2026-11-09T07:28:45Z | Kaggle GPU smoke v2 completed and outputs were retrieved | EXECUTION_VERIFIED | Tesla T4; 15.64 GB VRAM; manifest and 300-image tree hashes match; 11.09 s inference; 2.39 s/20 steps; 580 MB peak; reload/resume pass | `evidence/kaggle_smoke_v2.json`, `artifacts/kaggle_download/v2/` |
 

@@ -43,7 +43,7 @@ Metadata models use an equally weighted generic-image L1 and combined-output L1 
 
 A 16-image real-data slice completed forward/backward, 20 updates, atomic checkpointing, bit-exact reload, and optimizer resume; peak allocation was 1.20 GB. A four-image sanity subset reduced L1 from 54.29 to 1.49 (minimum 0.17) over 200 updates.
 
-Full feature extraction took 119.76 seconds on a local RTX 4050 Laptop GPU at 92.89 images/s and 296 MB peak allocation. E0-E4 took 5.09, 8.25, 7.40, 6.82, and 10.18 seconds. Extraction plus all heads was 157.5 seconds; analysis adds roughly two minutes. This is local evidence, not Kaggle evidence. Kaggle CLI 2.2.5 returns `Authentication required`; remote status remains `BLOCKED_ON_USER_AUTH`.
+Full feature extraction took 119.76 seconds on a local RTX 4050 Laptop GPU at 92.89 images/s and 296 MB peak allocation. E0-E4 took 5.09, 8.25, 7.40, 6.82, and 10.18 seconds. Extraction plus all heads was 157.5 seconds; analysis adds roughly two minutes. Separately, private Kaggle kernel `longltrnhong/spaq-exif-robustness-smoke` v2 completed on a Tesla T4 with 15.64 GB VRAM. It verified the manifest and exact 300-image sample tree hash, measured 11.09 seconds for inference and 2.39 seconds for 20 training steps, peaked at 580 MB allocated VRAM, and passed checkpoint reload plus optimizer resume. Projected 11,125-image inference with a 20% buffer is 493.65 seconds.
 
 ## Main results
 
@@ -110,11 +110,11 @@ E1 was selected because it had the highest validation SRCC. The review determini
 3. Conservative dHash grouping may merge rare false positives, while the alternative demonstrably leaks repeats.
 4. Raw device strings contain aliases/outliers, so no unseen-device/OOD claim is made.
 5. Subgroups overlap and are exploratory.
-6. No Kaggle remote run exists until OAuth is supplied.
+6. The Kaggle job is a compute/data/checkpoint smoke test, not an additional E0-E4 training seed.
 7. Redistribution rights are not inferred from mirror metadata.
 
 ## Conclusion and evidence
 
 EXIF supplies a small measurable benefit through simple additive fusion in this resource-adapted track. More parameters do not reliably help, and dropout does not improve missingness robustness. Preserve an independently valid image branch and explicit availability masks; prefer E1 unless repeated-seed evidence supports gating.
 
-Machine-readable evidence is in `evidence/e0_frozen_r50_s20261109.json` through `evidence/e4_frozen_r50_s20261109.json`, `evidence/missingness_all_s20261109.json`, and `evidence/analysis_summary_s20261109.json`. Full provenance is in `data/provenance.json`; chronological claims are in `EVIDENCE_LOG.md`.
+Machine-readable evidence is in `evidence/e0_frozen_r50_s20261109.json` through `evidence/e4_frozen_r50_s20261109.json`, `evidence/missingness_all_s20261109.json`, `evidence/analysis_summary_s20261109.json`, and `evidence/kaggle_smoke_v2.json`. Full provenance is in `data/provenance.json`; chronological claims are in `EVIDENCE_LOG.md`.

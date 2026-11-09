@@ -6,7 +6,7 @@ Legend: `TODO`, `IN_PROGRESS`, `DONE`, `FAILED`, `BLOCKED`, `NOT_APPLICABLE`. Ev
 
 - [x] **G0-001 DONE** Read controlling documents and audit primary papers/repositories/data endpoints. Evidence: `docs/SOURCE_AUDIT.md`, pinned SHAs in `EVIDENCE_LOG.md`.
 - [x] **G0-002 DONE** Create repository, durable state ledger, test runner skeleton, and initial clean commit. Evidence: commit `2297c0539e14056182f40dbbada4054b79bbb5ea`.
-- [x] **G0-003 DONE** Probe Python/Git/GPU/GitHub/Kaggle without exposing secrets. Evidence: `EVIDENCE_LOG.md`; Kaggle CLI 2.2.5 installed, auth absent.
+- [x] **G0-003 DONE** Probe Python/Git/GPU/GitHub/Kaggle without exposing secrets. Kaggle auth was initially absent and was later established through OAuth. Evidence: `EVIDENCE_LOG.md`.
 
 ## Phase 1 — data and provenance
 
@@ -17,7 +17,7 @@ Legend: `TODO`, `IN_PROGRESS`, `DONE`, `FAILED`, `BLOCKED`, `NOT_APPLICABLE`. Ev
 ## Phase 2 — vertical slice and compute smoke
 
 - [x] **G2-001 DONE** Ran 16-image ResNet-50 forward/backward, 20 updates, atomic checkpoint, bit-exact reload evaluation, optimizer resume, and four-image overfit sanity; 12 tests pass. Evidence: `evidence/g2_vertical_slice.json`, `evidence/g2_tiny_overfit.json`.
-- [ ] **G2-002 IN_PROGRESS** Kaggle OAuth established; private verified input dataset created; GPU smoke kernel `longltrnhong/spaq-exif-robustness-smoke` version 1 is running.
+- [x] **G2-002 DONE** Kaggle GPU smoke v2 completed on Tesla T4; verified 300-image sample integrity, timing, VRAM, 20 train steps, checkpoint reload/resume, output retrieval, and hashes. Evidence: `evidence/kaggle_smoke_v2.json`.
 
 ## Phase 3 — matched baselines
 
@@ -36,5 +36,5 @@ Legend: `TODO`, `IN_PROGRESS`, `DONE`, `FAILED`, `BLOCKED`, `NOT_APPLICABLE`. Ev
 
 ## Phase 6 — deliverable
 
-- [x] **G6-001 DONE** Completed README reproduction guide, experiment report, acceptance audit, release validator, and context-independent handoff. External Kaggle OAuth and GitHub remote remain explicitly blocked. Evidence: `evidence/release_validation.json`, `docs/ACCEPTANCE_AUDIT.md`.
+- [x] **G6-001 DONE** Completed README reproduction guide, experiment report, acceptance audit, release validator, Kaggle evidence retrieval, and context-independent handoff. Only optional GitHub publication remains. Evidence: `evidence/release_validation.json`, `docs/ACCEPTANCE_AUDIT.md`.
 

@@ -2,9 +2,9 @@
 
 ## Current state
 
-Kaggle CLI 2.2.5 is installed in `.venv`, but `kaggle kernels list -m` returned `Authentication required`. No kernel has been pushed, no Kaggle GPU evidence exists, and `STATE.json` must remain `BLOCKED_ON_USER_AUTH` until a real run is retrieved.
+OAuth is established for `longltrnhong`. Private dataset `longltrnhong/spaq-compact-verified` is ready, and kernel `longltrnhong/spaq-exif-robustness-smoke` version 2 completed on Tesla T4. Outputs are retained under ignored `artifacts/kaggle_download/v2`; tracked results and hashes are in `evidence/kaggle_smoke_v2.json`.
 
-## Required human action
+## Re-authentication if credentials expire
 
 ```powershell
 .\.venv\Scripts\kaggle.exe auth login

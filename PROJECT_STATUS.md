@@ -1,14 +1,14 @@
 # PROJECT STATUS
 
-**Updated UTC:** 2026-11-09T07:15:53Z
-**Phase:** Phase 6 — Kaggle smoke execution
-**Last successful gate:** G6_LOCAL
-**Git commit / remote:** `dd0161c075c325777399379b939403bb4e8e21be` / NONE
-**Kaggle kernel/version/status:** `longltrnhong/spaq-exif-robustness-smoke` / v1 / RUNNING
+**Updated UTC:** 2026-11-09T07:28:45Z
+**Phase:** Phase 6 — COMPLETE
+**Last successful gate:** G6
+**Git commit / remote:** `57b3ee3dc5a352fea19a9441332a6e78d2db896e` / NONE
+**Kaggle kernel/version/status:** `longltrnhong/spaq-exif-robustness-smoke` / v2 / COMPLETE
 
 ## Current objective
 
-Monitor the real Kaggle GPU smoke, retrieve outputs, verify hashes, and close the remaining remote execution gate.
+Preserve the completed reproducible research package; optional next step is a private GitHub remote.
 
 ## Execution-verified achievements
 
@@ -16,7 +16,7 @@ Monitor the real Kaggle GPU smoke, retrieve outputs, verify hashes, and close th
 - Local Git 2.50.1 is available and a `main` repository was initialized.
 - Python 3.13.5 is available through `py`; the `python` alias is not usable.
 - Local NVIDIA RTX 4050 Laptop GPU is visible with 6141 MiB VRAM; this is not Kaggle evidence.
-- `gh` is not installed. Kaggle CLI 2.2.5 is installed and its read-only account probe confirmed authentication is absent.
+- `gh` is not installed. Kaggle CLI 2.2.5 is authenticated through OAuth as `longltrnhong`.
 - Q-Align `spaq.tar` downloaded: 2,626,897,920 bytes; SHA-256 matches the Hugging Face linked ETag.
 - The archive contains exactly 11,125 unique, readable JPEGs and no annotation files; none contains embedded EXIF.
 - IQA-PyTorch's pinned metadata release has 11,125 unique SPAQ rows with MOS, attributes, scene annotations, EXIF-derived columns, and no nulls.
@@ -30,7 +30,7 @@ Monitor the real Kaggle GPU smoke, retrieve outputs, verify hashes, and close th
 - Python 3.12.10/PyTorch 2.14.1+cu130 completed a CUDA operation on the RTX 4050.
 - The 16-image ResNet-50 slice completed 20 updates, bit-exact checkpoint reload, optimizer resume, and step-21 checkpoint with 1.20 GB peak allocation.
 - Four-image overfit sanity reduced L1 from 54.29 to 1.49 (minimum 0.17) over 200 updates. Twelve tests pass.
-- A standalone Kaggle smoke runner is ready; remote execution remains `BLOCKED_ON_USER_AUTH`.
+- The standalone Kaggle smoke completed on Tesla T4 and its outputs were retrieved and verified.
 - Frozen ResNet-50 features for all 11,125 rows were extracted once at 92.89 images/s; cache SHA-256 is `b639bb6f...975ed`.
 - E0 test SRCC/PLCC/MAE: 0.83048/0.83063/9.3489. E1 additive EXIF: 0.83613/0.83572/9.1942. E3 additive plus dropout: 0.83450/0.83452/9.2534.
 - Missingness stress shows a very small metadata contribution: E1 SRCC falls only 0.00034 from full to zero EXIF; E3 falls 0.00018 and does not outperform E1 at any availability level.
@@ -39,12 +39,13 @@ Monitor the real Kaggle GPU smoke, retrieve outputs, verify hashes, and close th
 - A 10,000-resample paired bootstrap found E1-E0 delta SRCC 0.00565, 95% CI [0.00132, 0.01013]. E2-E1 crosses zero on SRCC/PLCC/MAE; no reliable gated advantage was detected.
 - Capture-condition subsets contain 235 high-ISO, 316 long-exposure, and 191 night-scene test images. E1 leads the first two by SRCC; E2 narrowly leads night scenes. These are descriptive subgroup results.
 - Seven figures, paired tables, and a deterministic 20-case E1 error audit are hash-indexed in `evidence/analysis_summary_s20261109.json`.
-- Release validation passed: canonical manifest hash/11,125 unique rows/split counts/zero group crossings, seven core evidence statuses, ten analysis-output hashes, five ignore-policy targets, required documents, 16 tests, and dependency consistency.
-- Kaggle OAuth is established for `longltrnhong`. Private dataset `longltrnhong/spaq-compact-verified` is ready with the verified manifest and all 11,125 expanded compact images. Kernel v1 is running.
+- Release validation passed: canonical manifest/hash/counts/group isolation, eight evidence statuses, ten analysis-output hashes, three Kaggle-output hashes, ignore policy, required documents, 16 tests, and dependency consistency.
+- Kaggle OAuth is established for `longltrnhong`. Private dataset `longltrnhong/spaq-compact-verified` contains the verified manifest and all 11,125 expanded compact images.
+- Kaggle smoke v2 completed on Tesla T4: 300-image inference 11.09 s, 20 train steps 2.39 s, 580 MB peak allocation, checkpoint reload and optimizer resume successful. Downloaded artifacts match recorded hashes.
 
 ## Current task
 
-- G2-002: Kaggle remote smoke remains blocked pending user OAuth. All independent local work and the G6 deliverable are complete.
+- All G0-G6 research gates are complete. GitHub publication remains optional and no remote is configured.
 
 ## Actual blockers
 
@@ -52,13 +53,13 @@ Monitor the real Kaggle GPU smoke, retrieve outputs, verify hashes, and close th
 
 ## Observed results
 
-THE LOCAL G6 DELIVERABLE IS COMPLETE AND VALIDATED. KAGGLE OAUTH/DATASET SETUP SUCCEEDED AND GPU SMOKE V1 IS RUNNING; NO REMOTE RESULT IS CLAIMED UNTIL OUTPUT RETRIEVAL.
+G0-G6 ARE COMPLETE. THE KAGGLE GPU SMOKE IS EXECUTION-VERIFIED AND RETRIEVED; THE SCIENTIFIC CONCLUSIONS REMAIN THE RESOURCE-ADAPTED E0-E4 RESULTS REPORTED ABOVE.
 
 ## Next actions
 
-1. Poll kernel v1 until terminal status.
-2. Retrieve output, validate `smoke_summary.json` and checkpoint hashes, then update all ledgers.
-3. Optionally install/authenticate GitHub CLI and create a private remote.
+1. Optionally install/authenticate GitHub CLI and create a private remote.
+2. Keep the Kaggle dataset/kernel private unless the user explicitly changes visibility.
+3. For future work, repeat training seeds before making stronger optimization-variance claims.
 
 ## Relevant evidence and file paths
 
@@ -84,6 +85,7 @@ THE LOCAL G6 DELIVERABLE IS COMPLETE AND VALIDATED. KAGGLE OAUTH/DATASET SETUP S
 - `evidence/release_validation.json`
 - `docs/EXPERIMENT_REPORT.md`
 - `docs/ACCEPTANCE_AUDIT.md`
+- `evidence/kaggle_smoke_v2.json`
 - `docs/DATASET_RECOVERY.md`
 - `docs/SOURCE_AUDIT.md`
 - `EVIDENCE_LOG.md`
