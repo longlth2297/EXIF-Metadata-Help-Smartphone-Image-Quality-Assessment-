@@ -27,4 +27,9 @@
 | 2026-11-08T20:42:28Z | Real-image model vertical slice and checkpoint resume succeeded | EXECUTION_VERIFIED | ResNet-50, 16 SPAQ images, 20 updates in 2.98 s; 1.20 GB peak; checkpoint predictions bit-exact after reload; step 21 resumed | `evidence/g2_vertical_slice.json` |
 | 2026-11-08T20:43:26Z | Tiny real-image subset can overfit | EXECUTION_VERIFIED | Four images, 200 updates; L1 54.29 to 1.49 (minimum 0.17); SRCC 1.0 is resubstitution sanity only | `evidence/g2_tiny_overfit.json` |
 | 2026-11-08T20:45:03Z | Kaggle smoke is packaged but remote execution remains auth-blocked | EXECUTION_VERIFIED | Standalone runner records 300-image IO/inference, 20 steps, GPU/disk/VRAM, checkpoint/reload; CLI still reports authentication required | `kaggle/kernel/run_smoke.py`, `STATE.json` |
+| 2026-11-08T20:49:26Z | Frozen ResNet-50 feature cache extracted over every SPAQ row | EXECUTION_VERIFIED | 11,125x2,048 float32; SHA-256 `b639bb6f...975ed`; 119.76 s total; 92.89 images/s; 296 MB peak | `evidence/feature_cache_resnet50.json` |
+| 2026-11-08T20:51:45Z | E0 image-only resource-adapted baseline completed | EXECUTION_VERIFIED | Best epoch 52 by validation; test SRCC/PLCC/MAE 0.83048/0.83063/9.3489 | `evidence/e0_frozen_r50_s20261109.json` |
+| 2026-11-08T20:52:10Z | E1 additive EXIF matched run completed | EXECUTION_VERIFIED | 16 additional parameters; test SRCC/PLCC/MAE 0.83613/0.83572/9.1942 | `evidence/e1_frozen_r50_s20261109.json` |
+| 2026-11-08T20:52:31Z | E3 additive EXIF plus 50% metadata dropout completed | EXECUTION_VERIFIED | Test SRCC/PLCC/MAE 0.83450/0.83452/9.2534 | `evidence/e3_frozen_r50_s20261109.json` |
+| 2026-11-08T20:53:54Z | E1/E3 missingness curves executed on identical test IDs | EXECUTION_VERIFIED | Five fixed masks at 25/50%; E1 SRCC 0.83613→0.83579 and E3 0.83450→0.83432 from 0→100% missing; dropout gave no robustness advantage | `evidence/missingness_e1_e3_s20261109.json` |
 

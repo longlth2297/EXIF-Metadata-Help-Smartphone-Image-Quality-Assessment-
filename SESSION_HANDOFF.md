@@ -1,8 +1,8 @@
 # SESSION HANDOFF
 
-**Updated UTC:** 2026-11-08T20:45:03Z
-**Repo path/commit:** `D:\HCMUS\Year2\Scientific Method\SC\spaq-exif-robustness` / `575093c63a7ed23218c89d5c8f146b4ee9568cba`
-**Most advanced completed gate:** G2
+**Updated UTC:** 2026-11-09T04:26:04Z
+**Repo path/commit:** `D:\HCMUS\Year2\Scientific Method\SC\spaq-exif-robustness` / `539261783524d6b0b3828247cefad915b8eac41b`
+**Most advanced completed gate:** G3
 **Active Kaggle kernel/version/status:** NONE / BLOCKED_ON_USER_AUTH  
 **Last valid checkpoint:** NONE
 
@@ -22,10 +22,13 @@
 - Extracted all 11,125 compact images and ran the 16-image/20-step ResNet-50 vertical slice with atomic checkpoint, bit-exact reload, optimizer resume, and 1.20 GB peak allocation.
 - Four-image overfit sanity reduced L1 from 54.29 to 1.49 (minimum 0.17) in 200 steps; 12 tests pass.
 - Packaged a standalone Kaggle smoke runner; remote execution remains blocked only on user OAuth/private dataset attachment.
+- Extracted one verified 11,125x2,048 frozen ResNet-50 cache and ran E0/E1/E3 with identical split, seed, visual features, budget, and validation-only checkpoint selection.
+- E1 improves test SRCC by 0.00565 and MAE by 0.1547 over E0 in this one seed. E3 is below E1 at full metadata.
+- Evaluated 0/25/50/100% record-level metadata missingness with five fixed stochastic masks at 25/50%; E3 dropout gives no measured robustness advantage.
 
 ## Last operation, command and result
 
-- Last operation: completed four-image overfit sanity and persisted checkpoint/prediction hashes in `evidence/g2_tiny_overfit.json`.
+- Last operation: wrote `evidence/missingness_e1_e3_s20261109.json`; all model configs, checkpoints, epoch logs, and per-image predictions are under ignored `artifacts/runs/` with hashes in evidence.
 
 ## Failed/blocked steps
 
@@ -42,9 +45,9 @@
 
 ## Exact next commands
 
-1. Implement the E0 epoch trainer with validation-only model selection and deterministic resume.
-2. Train one complete E0 seed locally, export validation/test predictions, and record runtime.
-3. Run matched E1 after E0 succeeds; keep Kaggle state `BLOCKED_ON_USER_AUTH` until OAuth.
+1. Implement E2 gated fusion and E4 gated plus dropout with explicit parameter counts.
+2. Run both matched experiments and missingness evaluation.
+3. Compute paired bootstrap contrasts from existing prediction files; keep Kaggle state `BLOCKED_ON_USER_AUTH` until OAuth.
 
 ## Warnings
 

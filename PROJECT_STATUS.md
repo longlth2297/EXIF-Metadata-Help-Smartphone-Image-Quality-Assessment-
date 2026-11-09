@@ -1,14 +1,14 @@
 # PROJECT STATUS
 
-**Updated UTC:** 2026-11-08T20:45:03Z
-**Phase:** Phase 3 — matched baselines (G3)
-**Last successful gate:** G2
-**Git commit / remote:** `575093c63a7ed23218c89d5c8f146b4ee9568cba` / NONE
+**Updated UTC:** 2026-11-09T04:26:04Z
+**Phase:** Phase 4 — controlled extensions (G4)
+**Last successful gate:** G3
+**Git commit / remote:** `539261783524d6b0b3828247cefad915b8eac41b` / NONE
 **Kaggle kernel/version/status:** NONE / Kaggle CLI 2.2.5 installed, authentication absent
 
 ## Current objective
 
-Train the one-seed E0 image-only baseline on the frozen split, select only by validation metrics, then run matched E1 additive EXIF.
+Run E2 gated fusion and E4 gated-plus-dropout as matched ablations, then evaluate whether added mechanism or dropout produces a measured benefit.
 
 ## Execution-verified achievements
 
@@ -31,10 +31,13 @@ Train the one-seed E0 image-only baseline on the frozen split, select only by va
 - The 16-image ResNet-50 slice completed 20 updates, bit-exact checkpoint reload, optimizer resume, and step-21 checkpoint with 1.20 GB peak allocation.
 - Four-image overfit sanity reduced L1 from 54.29 to 1.49 (minimum 0.17) over 200 updates. Twelve tests pass.
 - A standalone Kaggle smoke runner is ready; remote execution remains `BLOCKED_ON_USER_AUTH`.
+- Frozen ResNet-50 features for all 11,125 rows were extracted once at 92.89 images/s; cache SHA-256 is `b639bb6f...975ed`.
+- E0 test SRCC/PLCC/MAE: 0.83048/0.83063/9.3489. E1 additive EXIF: 0.83613/0.83572/9.1942. E3 additive plus dropout: 0.83450/0.83452/9.2534.
+- Missingness stress shows a very small metadata contribution: E1 SRCC falls only 0.00034 from full to zero EXIF; E3 falls 0.00018 and does not outperform E1 at any availability level.
 
 ## Current task
 
-- G3-001: train and evaluate the one-seed E0 image-only baseline without tuning on test.
+- G4-002: implement and run the matched E2 gated-fusion ablation.
 
 ## Actual blockers
 
@@ -43,13 +46,13 @@ Train the one-seed E0 image-only baseline on the frozen split, select only by va
 
 ## Observed results
 
-G2 IS EXECUTION-VERIFIED LOCALLY. SANITY METRICS ARE NOT BASELINE RESULTS. KAGGLE REMOTE SMOKE IS AUTH-BLOCKED.
+G3 IS COMPLETE ON THE RESOURCE-ADAPTED TRACK. E1 SHOWS A SMALL ONE-SEED IMPROVEMENT OVER E0; E3 DROPOUT DOES NOT IMPROVE E1 ROBUSTNESS. KAGGLE REMAINS AUTH-BLOCKED.
 
 ## Next actions
 
-1. Implement E0 epoch training, validation-only checkpoint selection, resume, and final test prediction export.
-2. Run one complete local E0 seed and derive an end-to-end runtime projection.
-3. Execute the packaged Kaggle smoke immediately after OAuth becomes available; do not duplicate a running version.
+1. Implement parameter-documented E2 gating and E4 gating plus 50% metadata dropout.
+2. Run both with the same cache, split, seed, budget, validation selection, and test policy.
+3. Compute paired uncertainty for fixed confirmatory contrasts; keep single-seed limits explicit.
 
 ## Relevant evidence and file paths
 
@@ -63,6 +66,10 @@ G2 IS EXECUTION-VERIFIED LOCALLY. SANITY METRICS ARE NOT BASELINE RESULTS. KAGGL
 - `evidence/spaq_manifest_audit.json`
 - `evidence/g2_vertical_slice.json`
 - `evidence/g2_tiny_overfit.json`
+- `evidence/e0_frozen_r50_s20261109.json`
+- `evidence/e1_frozen_r50_s20261109.json`
+- `evidence/e3_frozen_r50_s20261109.json`
+- `evidence/missingness_e1_e3_s20261109.json`
 - `docs/DATASET_RECOVERY.md`
 - `docs/SOURCE_AUDIT.md`
 - `EVIDENCE_LOG.md`

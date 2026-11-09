@@ -21,13 +21,13 @@ Legend: `TODO`, `IN_PROGRESS`, `DONE`, `FAILED`, `BLOCKED`, `NOT_APPLICABLE`. Ev
 
 ## Phase 3 — matched baselines
 
-- [ ] **G3-001 IN_PROGRESS** Execute E0 image-only training and persist predictions/checkpoint/logs. Frozen split and local measured CUDA path are ready.
-- [ ] **G3-002 TODO** Execute matched E1 additive EXIF training and persist artifacts.
+- [x] **G3-001 DONE** E0 resource-adapted frozen-ResNet50 run completed; test SRCC/PLCC/MAE 0.83048/0.83063/9.3489 with checkpoint, logs, and predictions. Evidence: `evidence/e0_frozen_r50_s20261109.json`.
+- [x] **G3-002 DONE** Matched E1 additive EXIF run completed; test 0.83613/0.83572/9.1942. Evidence: `evidence/e1_frozen_r50_s20261109.json`.
 
 ## Phase 4 — controlled extensions
 
-- [ ] **G4-001 TODO** Execute E3 additive plus metadata dropout (MVR priority).
-- [ ] **G4-002 TODO** Execute E2 gated fusion matched ablation.
+- [x] **G4-001 DONE** E3 with 50% record-level metadata dropout completed; test 0.83450/0.83452/9.2534. Missingness curve showed no robustness advantage over E1. Evidence: `evidence/e3_frozen_r50_s20261109.json`, `evidence/missingness_e1_e3_s20261109.json`.
+- [ ] **G4-002 IN_PROGRESS** Execute E2 gated fusion matched ablation.
 - [ ] **G4-003 TODO** Execute E4 gated plus dropout matched ablation.
 
 ## Phase 5 — analysis
