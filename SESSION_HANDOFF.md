@@ -1,8 +1,8 @@
 # SESSION HANDOFF
 
-**Updated UTC:** 2026-11-09T04:31:47Z
-**Repo path/commit:** `D:\HCMUS\Year2\Scientific Method\SC\spaq-exif-robustness` / `40a96792662b8e0707c34966eafe1b6bc8b969ca`
-**Most advanced completed gate:** G4
+**Updated UTC:** 2026-11-09T04:41:17Z
+**Repo path/commit:** `D:\HCMUS\Year2\Scientific Method\SC\spaq-exif-robustness` / `cf188f3eb8a14671cb576002e3b5c2a332fcf578`
+**Most advanced completed gate:** G5
 **Active Kaggle kernel/version/status:** NONE / BLOCKED_ON_USER_AUTH  
 **Last valid checkpoint:** `artifacts/runs/e2_frozen_r50_s20261109/best.pt`
 
@@ -27,10 +27,12 @@
 - Evaluated 0/25/50/100% record-level metadata missingness with five fixed stochastic masks at 25/50%; E3 dropout gives no measured robustness advantage.
 - Completed matched E2 gated and E4 gated-plus-dropout runs. E2 test SRCC/PLCC/MAE is 0.83602/0.83779/9.1179; E4 is 0.83208/0.83337/9.3265.
 - Extended missingness evaluation to all metadata models; E2 falls to 0.83290 SRCC and E4 to 0.82813 at zero available EXIF.
+- Completed 10,000-resample paired inference: E1-E0 SRCC delta 0.00565 [0.00132, 0.01013]; all E2-E1 metric intervals cross zero.
+- Completed train-defined high-ISO (n=235), long-exposure (n=316), and night-scene (n=191) analysis, deterministic top-error audit, and seven hashed figures.
 
 ## Last operation, command and result
 
-- Last operation: wrote `evidence/missingness_all_s20261109.json`; all model configs, checkpoints, epoch logs, and per-image predictions are under ignored `artifacts/runs/` with hashes in evidence.
+- Last operation: wrote `evidence/analysis_summary_s20261109.json`, paired/subgroup/error tables, and seven report figures.
 
 ## Failed/blocked steps
 
@@ -47,8 +49,8 @@
 
 ## Exact next commands
 
-1. Run 10,000-resample paired bootstrap contrasts from the frozen test predictions.
-2. Evaluate train-threshold capture-condition subgroups and held-out failure cases; generate figures.
+1. Complete `docs/EXPERIMENT_REPORT.md`, README, Kaggle runbook, and acceptance audit.
+2. Run final tests and reproduction checks; commit the G6 handoff.
 3. Keep Kaggle state `BLOCKED_ON_USER_AUTH` until OAuth.
 
 ## Warnings

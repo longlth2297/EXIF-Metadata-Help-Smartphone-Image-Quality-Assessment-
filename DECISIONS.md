@@ -19,3 +19,16 @@
 - **Reason:** Preserves causal contrasts and avoids an unverified label dependency.
 - **Evidence:** research reports and acceptance criteria.
 
+## D-0004 — 2026-11-09 — Use a resource-adapted frozen-feature track
+
+- **Decision:** Compare E0-E4 using one frozen ImageNet-V2 ResNet-50 feature cache, identical split/seed/head budget, and validation-only checkpoint selection.
+- **Reason:** Measured local extraction plus head training completes the full controlled campaign in minutes; Kaggle OAuth is externally unavailable.
+- **Limitation:** This is not a faithful end-to-end retraining of the original SPAQ architecture and cannot establish training-seed uncertainty.
+- **Evidence:** `evidence/feature_cache_resnet50.json`; E0-E4 evidence JSON files.
+
+## D-0005 — 2026-11-09 — Stop adding fusion complexity
+
+- **Decision:** End controlled model iteration after E4 and proceed to analysis/reporting.
+- **Reason:** E2 does not reliably improve E1 under paired bootstrap, while E3/E4 metadata dropout is neutral or harmful and missingness degradation remains small.
+- **Evidence:** `evidence/analysis_summary_s20261109.json`; `evidence/missingness_all_s20261109.json`.
+

@@ -32,9 +32,9 @@ Legend: `TODO`, `IN_PROGRESS`, `DONE`, `FAILED`, `BLOCKED`, `NOT_APPLICABLE`. Ev
 
 ## Phase 5 — analysis
 
-- [ ] **G5-001 IN_PROGRESS** Missingness curves complete; paired bootstrap, justified capture-condition groups, error analysis, and figures remain.
+- [x] **G5-001 DONE** Completed 10,000-resample paired bootstrap, train-defined capture-condition subgroups, deterministic top-error review, and seven provenance-hashed figures. Evidence: `evidence/analysis_summary_s20261109.json`.
 
 ## Phase 6 — deliverable
 
-- [ ] **G6-001 TODO** Clean reproduction commands, report, acceptance audit, artifact hashes, safe remote push, and final handoff.
+- [ ] **G6-001 IN_PROGRESS** Clean reproduction commands, report, acceptance audit, artifact hashes, safe remote push, and final handoff.
 

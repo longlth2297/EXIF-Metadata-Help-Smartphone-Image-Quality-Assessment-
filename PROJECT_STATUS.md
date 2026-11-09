@@ -1,14 +1,14 @@
 # PROJECT STATUS
 
-**Updated UTC:** 2026-11-09T04:31:47Z
-**Phase:** Phase 5 — analysis (G5)
-**Last successful gate:** G4
-**Git commit / remote:** `40a96792662b8e0707c34966eafe1b6bc8b969ca` / NONE
+**Updated UTC:** 2026-11-09T04:41:17Z
+**Phase:** Phase 6 — deliverable (G6)
+**Last successful gate:** G5
+**Git commit / remote:** `cf188f3eb8a14671cb576002e3b5c2a332fcf578` / NONE
 **Kaggle kernel/version/status:** NONE / Kaggle CLI 2.2.5 installed, authentication absent
 
 ## Current objective
 
-Quantify paired uncertainty, capture-condition subgroup behavior, missingness robustness, and failure cases for the completed E0-E4 matched experiments.
+Complete the reproducible report, runbook, acceptance audit, final validation, and context-independent handoff.
 
 ## Execution-verified achievements
 
@@ -36,10 +36,13 @@ Quantify paired uncertainty, capture-condition subgroup behavior, missingness ro
 - Missingness stress shows a very small metadata contribution: E1 SRCC falls only 0.00034 from full to zero EXIF; E3 falls 0.00018 and does not outperform E1 at any availability level.
 - E2 gated fusion completed with 8,704 metadata parameters: test SRCC/PLCC/MAE 0.83602/0.83779/9.1179. It is effectively tied with E1 on SRCC while improving PLCC and MAE in this seed.
 - E4 gated plus 50% metadata dropout completed at 0.83208/0.83337/9.3265, below E2 and E1. E2 SRCC declines to 0.83290 at 100% metadata missingness; E4 declines to 0.82813.
+- A 10,000-resample paired bootstrap found E1-E0 delta SRCC 0.00565, 95% CI [0.00132, 0.01013]. E2-E1 crosses zero on SRCC/PLCC/MAE; no reliable gated advantage was detected.
+- Capture-condition subsets contain 235 high-ISO, 316 long-exposure, and 191 night-scene test images. E1 leads the first two by SRCC; E2 narrowly leads night scenes. These are descriptive subgroup results.
+- Seven figures, paired tables, and a deterministic 20-case E1 error audit are hash-indexed in `evidence/analysis_summary_s20261109.json`.
 
 ## Current task
 
-- G5-001: paired bootstrap, capture-condition subgroups, failure analysis, and figures.
+- G6-001: final report, reproduction guide, acceptance audit, and handoff.
 
 ## Actual blockers
 
@@ -48,13 +51,13 @@ Quantify paired uncertainty, capture-condition subgroup behavior, missingness ro
 
 ## Observed results
 
-G4 IS COMPLETE ON THE RESOURCE-ADAPTED TRACK. ADDITIVE E1 AND GATED E2 ARE NEAR-TIED ON SRCC; E2 HAS THE BEST PLCC/MAE. METADATA DROPOUT HURTS BOTH FUSION FORMS. KAGGLE REMAINS AUTH-BLOCKED.
+G5 IS COMPLETE. E1 HAS A SMALL PAIRED-SAMPLING ADVANTAGE OVER E0; E2 DOES NOT RELIABLY IMPROVE E1, AND METADATA DROPOUT DOES NOT HELP. KAGGLE REMAINS AUTH-BLOCKED.
 
 ## Next actions
 
-1. Compute paired uncertainty for fixed confirmatory contrasts; keep single-seed limits explicit.
-2. Evaluate predeclared train-threshold capture-condition subgroups and inspect largest held-out errors.
-3. Produce evidence figures and complete the acceptance audit.
+1. Write the experiment report and complete README reproduction commands.
+2. Audit every acceptance item and validate commands/tests from persisted state.
+3. Commit the final handoff; retain Kaggle as externally blocked until OAuth.
 
 ## Relevant evidence and file paths
 
@@ -74,6 +77,9 @@ G4 IS COMPLETE ON THE RESOURCE-ADAPTED TRACK. ADDITIVE E1 AND GATED E2 ARE NEAR-
 - `evidence/e2_frozen_r50_s20261109.json`
 - `evidence/e4_frozen_r50_s20261109.json`
 - `evidence/missingness_all_s20261109.json`
+- `evidence/analysis_summary_s20261109.json`
+- `evidence/paired_bootstrap_s20261109.csv`
+- `evidence/subgroup_metrics_s20261109.csv`
 - `docs/DATASET_RECOVERY.md`
 - `docs/SOURCE_AUDIT.md`
 - `EVIDENCE_LOG.md`

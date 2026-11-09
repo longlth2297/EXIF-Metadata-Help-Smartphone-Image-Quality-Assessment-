@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "project": "spaq-exif-robustness",
-  "phase": "PHASE_5",
-  "gate": "G5",
-  "last_successful_gate": "G4",
-  "current_task_id": "G5-001",
-  "git_commit": "40a96792662b8e0707c34966eafe1b6bc8b969ca",
+  "phase": "PHASE_6",
+  "gate": "G6",
+  "last_successful_gate": "G5",
+  "current_task_id": "G6-001",
+  "git_commit": "cf188f3eb8a14671cb576002e3b5c2a332fcf578",
   "git_remote": null,
   "data_manifest_sha256": "abff8b1a5f7d2e74d0c8874655fbe40d5e75de75bf61e65753c7085cee15800d",
   "active_kaggle_kernel": null,
@@ -17,7 +17,7 @@
     "Kaggle CLI 2.2.5 is installed but authentication has not been established",
     "GitHub CLI is not installed; no private remote exists"
   ],
-  "next_command": ".\\.venv312\\Scripts\\python.exe scripts\\analyze_results.py --seed 20261109 --bootstrap-resamples 10000",
-  "last_updated_utc": "2026-11-09T04:31:47Z"
+  "next_command": "Complete docs/EXPERIMENT_REPORT.md, README reproduction guide, acceptance audit, and final validation",
+  "last_updated_utc": "2026-11-09T04:41:17Z"
 }
 
