@@ -3,9 +3,9 @@
   "project": "spaq-exif-robustness",
   "phase": "PHASE_7",
   "gate": "G7",
-  "last_successful_gate": "G7-002",
-  "current_task_id": "G7-003",
-  "git_commit": "3c01b6fcdc77c21b99823f08e4e8214b78837fe2",
+  "last_successful_gate": "G7-005",
+  "current_task_id": "G7-006",
+  "git_commit": "8855e3ff03dc8449858fc1bd33d736a2f8316ac4",
   "git_remote": "https://github.com/longlth2297/EXIF-Metadata-Help-Smartphone-Image-Quality-Assessment-.git",
   "data_manifest_sha256": "abff8b1a5f7d2e74d0c8874655fbe40d5e75de75bf61e65753c7085cee15800d",
   "active_kaggle_kernel": "longltrnhong/spaq-exif-robustness-smoke",
@@ -14,7 +14,7 @@
   "active_run_id": "kaggle_spaq_smoke_v2",
   "last_valid_checkpoint": "artifacts/runs/e2_frozen_r50_s20261109/best.pt",
   "outstanding_blockers": [],
-  "next_command": "Run E0/E1/E2 seeds 20261110 and 20261111 on the frozen verified feature cache; retain seed 20261109 baseline artifacts unchanged",
-  "last_updated_utc": "2026-11-09T10:16:43Z"
+  "next_command": "Package and smoke-test the preregistered matched frozen versus layer4-fine-tuned ResNet-50 runner, submit it to Kaggle GPU, then retrieve and hash every output",
+  "last_updated_utc": "2026-11-09T10:24:47Z"
 }
 

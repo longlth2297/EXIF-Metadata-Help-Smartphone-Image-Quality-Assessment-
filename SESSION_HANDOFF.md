@@ -1,8 +1,8 @@
 # SESSION HANDOFF
 
-**Updated UTC:** 2026-11-09T10:16:43Z
-**Repo path/commit:** `D:\HCMUS\Year2\Scientific Method\SC\spaq-exif-robustness` / `3c01b6fcdc77c21b99823f08e4e8214b78837fe2`, branch `phase7-hypothesis-extension`
-**Most advanced completed gate:** G7-002 (G0-G6 preserved at `baseline-v0.1`)
+**Updated UTC:** 2026-11-09T10:24:47Z
+**Repo path/commit:** `D:\HCMUS\Year2\Scientific Method\SC\spaq-exif-robustness` / `8855e3ff03dc8449858fc1bd33d736a2f8316ac4`, branch `phase7-hypothesis-extension`
+**Most advanced completed gate:** G7-005 (G0-G6 preserved at `baseline-v0.1`)
 **Active Kaggle kernel/version/status:** `longltrnhong/spaq-exif-robustness-smoke` / v2 / COMPLETE
 **Last valid checkpoint:** `artifacts/runs/e2_frozen_r50_s20261109/best.pt`
 
@@ -33,10 +33,13 @@
 - Established Kaggle OAuth and uploaded the verified compact dataset privately. Kaggle expanded the tar into 11,125 images; v2 verifies the deterministic tree hash of the exact 300-image smoke sample.
 - Kaggle v1 timed out during the overly broad full-tree integrity scan. Controlled v2 verified the exact 300-image smoke sample, completed on Tesla T4, and produced downloaded/hash-verified checkpoint, summary, and log artifacts.
 - Tagged and re-audited Baseline v0.1; all E0-E4 artifacts match their recorded hashes. Preregistered Phase 7 before new test execution.
+- Completed all nine E0/E1/E2 seed/model combinations without changing the baseline seed artifacts; hashes and metrics are registered in `EXPERIMENTS.csv` and per-run evidence JSON.
+- Aggregated H1/H3 exactly as preregistered: H1 is not supported because subgroup signs vary by seed; H3 is not supported because E2-E1 SRCC is negative in all three seeds.
+- Completed five-seed whole-record permutation, missingness, and inference-only feature-group diagnostics for all E1/E2 checkpoints. H2's rule passes, but its measured effect is small and is not interpreted causally.
 
 ## Last operation, command and result
 
-- Last operation: wrote `evidence/phase7_baseline_v01_audit.json` and the Phase 7 preregistration/research-direction documents; no new Phase 7 test result exists yet.
+- Last operation: completed and hash-indexed G7-003 through G7-005; local test suite passes. H4 Kaggle backbone comparison is the active task.
 
 ## Failed/blocked steps
 
@@ -53,9 +56,9 @@
 
 ## Exact next commands
 
-1. Run E0/E1/E2 seeds 20261110 and 20261111 with distinct `phase7_*` output paths.
-2. Aggregate correct-pair permutation, feature groups, subgroup, and missingness evidence.
-3. Run the matched backbone pair on Kaggle; retrieve and hash all outputs.
+1. Build and locally smoke-test a standalone matched frozen/layer4-fine-tuned ResNet-50 image runner.
+2. Submit it with the verified SPAQ compact dataset and pinned pretrained weights to Kaggle GPU.
+3. Retrieve and hash logs, predictions, and both checkpoints; update the Phase 7 report and release validation.
 
 ## Warnings
 

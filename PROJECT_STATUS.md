@@ -1,9 +1,9 @@
 # PROJECT STATUS
 
-**Updated UTC:** 2026-11-09T10:16:43Z
+**Updated UTC:** 2026-11-09T10:24:47Z
 **Phase:** Phase 7 — hypothesis-driven extension
-**Last successful gate:** G7-002
-**Git commit / remote:** `3c01b6fcdc77c21b99823f08e4e8214b78837fe2` / `origin` (GitHub), branch `phase7-hypothesis-extension`
+**Last successful gate:** G7-005
+**Git commit / remote:** `8855e3ff03dc8449858fc1bd33d736a2f8316ac4` / `origin` (GitHub), branch `phase7-hypothesis-extension`
 **Kaggle kernel/version/status:** `longltrnhong/spaq-exif-robustness-smoke` / v2 / COMPLETE
 
 ## Current objective
@@ -44,10 +44,15 @@ Execute the preregistered multi-seed, metadata-reliability, subgroup, and backbo
 - Kaggle smoke v2 completed on Tesla T4: 300-image inference 11.09 s, 20 train steps 2.39 s, 580 MB peak allocation, checkpoint reload and optimizer resume successful. Downloaded artifacts match recorded hashes.
 - Baseline v0.1 is preserved at tag `baseline-v0.1`; all E0-E4 artifacts revalidated by SHA-256. Existing results are explicitly frozen-feature, not full fine-tuning.
 - Phase 7 hypotheses and acceptance criteria were preregistered before new test execution in `configs/phase7_experiments.json`.
+- E0/E1/E2 now each have three matched training seeds. Mean E1-E0 test delta SRCC is +0.001878, but one seed is negative; the effect is small and not sign-consistent.
+- H1 is not supported under its registered rule: high-ISO, long-exposure, and night subsets have larger mean E1-E0 SRCC than all-test, but every subgroup has at least one non-positive seed.
+- H2's registered pairing test is supported with small effects: intact-minus-permuted mean SRCC is +0.000351 for E1 and +0.002593 for E2, positive for all three training seeds. This is pairing sensitivity, not causal proof.
+- H3 is not supported: mean E2-E1 test delta SRCC is -0.001317 and E2 is lower on all three seeds.
+- Missingness and feature-group evaluations were executed from fixed checkpoints. Feature-group results are inference-only diagnostics, not retrained causal ablations.
 
 ## Current task
 
-- G7-003: run the two additional E0/E1/E2 training seeds while retaining seed 20261109 as the immutable first replicate.
+- G7-006: run the matched frozen-versus-layer4-fine-tuned backbone comparison on Kaggle and retrieve all execution artifacts.
 
 ## Actual blockers
 
@@ -55,13 +60,13 @@ Execute the preregistered multi-seed, metadata-reliability, subgroup, and backbo
 
 ## Observed results
 
-G0-G6 REMAIN COMPLETE AND PRESERVED AS BASELINE V0.1. PHASE 7 IS ACTIVE; NO NEW NUMERICAL CLAIM HAS YET BEEN ACCEPTED.
+G0-G6 REMAIN COMPLETE AND PRESERVED AS BASELINE V0.1. G7-003 THROUGH G7-005 ARE EXECUTION-VERIFIED. H1 AND H3 FAILED THEIR REGISTERED SUPPORT RULES; H2 PASSED WITH A SMALL EFFECT. H4 IS PENDING KAGGLE EXECUTION.
 
 ## Next actions
 
-1. Run E0/E1/E2 for seeds 20261110 and 20261111.
-2. Execute correct-pair permutation and feature-group diagnostics from fixed checkpoints.
-3. Aggregate subgroup/missingness evidence, then run the matched backbone pair on Kaggle.
+1. Implement and locally smoke-test the matched image-backbone runner.
+2. Execute frozen and layer4-fine-tuned arms on Kaggle GPU with identical split, seed, crops, head, and validation selection.
+3. Retrieve and hash logs, predictions, and checkpoints; then finish the Phase 7 report and release validation.
 
 ## Relevant evidence and file paths
 
@@ -91,6 +96,9 @@ G0-G6 REMAIN COMPLETE AND PRESERVED AS BASELINE V0.1. PHASE 7 IS ACTIVE; NO NEW 
 - `evidence/phase7_baseline_v01_audit.json`
 - `configs/phase7_experiments.json`
 - `docs/RESEARCH_DIRECTION.md`
+- `evidence/phase7_multiseed_summary.json`
+- `evidence/phase7_metadata_diagnostics.json`
+- `docs/PHASE7_EXPERIMENT_REPORT.md`
 - `docs/DATASET_RECOVERY.md`
 - `docs/SOURCE_AUDIT.md`
 - `EVIDENCE_LOG.md`

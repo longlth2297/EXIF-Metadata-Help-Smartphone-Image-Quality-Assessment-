@@ -42,9 +42,9 @@ Legend: `TODO`, `IN_PROGRESS`, `DONE`, `FAILED`, `BLOCKED`, `NOT_APPLICABLE`. Ev
 
 - [x] **G7-001 DONE** Preserved completed E0-E4 as tag `baseline-v0.1`; verified every baseline config/checkpoint/log/prediction hash and documented the frozen-feature limitation. Evidence: `evidence/phase7_baseline_v01_audit.json`.
 - [x] **G7-002 DONE** Preregistered H1-H4 seeds, variables, controls, subgroup definitions, permutation seeds, metrics, and acceptance rules before new test execution. Evidence: `configs/phase7_experiments.json`, `docs/RESEARCH_DIRECTION.md`.
-- [ ] **G7-003 IN_PROGRESS** Execute matched E0/E1/E2 on three training seeds and aggregate confirmatory contrasts.
-- [ ] **G7-004 TODO** Execute correct-pair EXIF permutation and feature-group ablation diagnostics.
-- [ ] **G7-005 TODO** Aggregate missingness and capture-condition results across seeds.
-- [ ] **G7-006 TODO** Run matched frozen versus layer4-fine-tuned backbone comparison on Kaggle and retrieve artifacts.
+- [x] **G7-003 DONE** Executed matched E0/E1/E2 on three training seeds and aggregated preregistered contrasts. Evidence: `evidence/phase7_multiseed_summary.json`.
+- [x] **G7-004 DONE** Executed correct-pair EXIF permutation plus inference-only feature-group leave-out/only diagnostics on all E1/E2 checkpoints. Evidence: `evidence/phase7_metadata_diagnostics.json`.
+- [x] **G7-005 DONE** Aggregated missingness and train-defined capture-condition results across all three seeds. Evidence: `evidence/phase7_multiseed_summary.json`, `evidence/phase7_metadata_diagnostics.json`.
+- [ ] **G7-006 IN_PROGRESS** Run matched frozen versus layer4-fine-tuned backbone comparison on Kaggle and retrieve artifacts.
 - [ ] **G7-007 TODO** Complete Phase 7 report, figures, release validation, and branch push.
 
