@@ -18,7 +18,7 @@ import torch
 from torch import nn
 
 from spaq_iqa.metrics import regression_metrics
-from spaq_iqa.models import CachedFeatureRegressor
+from spaq_iqa.models import CachedFeatureRegressor, CachedGatedRegressor
 
 
 APEX_COLUMNS = [
@@ -55,9 +55,15 @@ def evaluate(model, features, metadata, targets) -> tuple[dict[str, float], np.n
     return regression_metrics(targets.cpu().numpy(), prediction_array), prediction_array
 
 
+def build_model(experiment: str):
+    if experiment in {"E2", "E4"}:
+        return CachedGatedRegressor()
+    return CachedFeatureRegressor(metadata=experiment in {"E1", "E3"})
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--experiment", choices=["E0", "E1", "E3"], required=True)
+    parser.add_argument("--experiment", choices=["E0", "E1", "E2", "E3", "E4"], required=True)
     parser.add_argument("--manifest", type=Path, required=True)
     parser.add_argument("--features", type=Path, required=True)
     parser.add_argument("--output-dir", type=Path, required=True)
@@ -106,9 +112,9 @@ def main() -> None:
             "targets": torch.from_numpy(manifest.loc[mask, "MOS"].to_numpy(np.float32)).to(device),
         }
 
-    uses_metadata = args.experiment in {"E1", "E3"}
-    dropout_probability = args.metadata_dropout if args.experiment == "E3" else 0.0
-    model = CachedFeatureRegressor(metadata=uses_metadata).to(device)
+    uses_metadata = args.experiment != "E0"
+    dropout_probability = args.metadata_dropout if args.experiment in {"E3", "E4"} else 0.0
+    model = build_model(args.experiment).to(device)
     optimizer = torch.optim.AdamW(model.parameters(), lr=args.learning_rate, weight_decay=1e-4)
     criterion = nn.L1Loss()
     generator = torch.Generator().manual_seed(args.seed)
@@ -125,6 +131,11 @@ def main() -> None:
         "batch_size": args.batch_size,
         "learning_rate": args.learning_rate,
         "metadata_dropout": dropout_probability,
+        "fusion": (
+            "gated_hidden_256"
+            if args.experiment in {"E2", "E4"}
+            else ("additive_offset" if uses_metadata else "image_only")
+        ),
         "manifest_sha256": sha256(args.manifest),
         "feature_cache_sha256": sha256(args.features),
         "apex_columns": APEX_COLUMNS,
@@ -217,7 +228,7 @@ def main() -> None:
 
     elapsed = time.perf_counter() - started
     best_payload = torch.load(best_path, map_location=device, weights_only=False)
-    selected = CachedFeatureRegressor(metadata=uses_metadata).to(device)
+    selected = build_model(args.experiment).to(device)
     selected.load_state_dict(best_payload["model_state"])
     val_metrics, val_predictions = evaluate(
         selected,
@@ -248,6 +259,9 @@ def main() -> None:
         predictions_path, index=False, lineterminator="\n"
     )
     parameter_count = sum(parameter.numel() for parameter in selected.parameters())
+    image_only_parameter_count = sum(
+        parameter.numel() for parameter in CachedFeatureRegressor(metadata=False).parameters()
+    )
     summary = {
         "completed_utc": datetime.now(timezone.utc).isoformat(),
         "status": "SUCCESS",
@@ -258,7 +272,7 @@ def main() -> None:
         "epochs_completed": epoch,
         "runtime_seconds": elapsed,
         "parameter_count": parameter_count,
-        "metadata_parameter_count": 16 if uses_metadata else 0,
+        "metadata_parameter_count": parameter_count - image_only_parameter_count,
         "validation_metrics": val_metrics,
         "test_metrics": test_metrics,
         "gpu_name": torch.cuda.get_device_name(0) if device.type == "cuda" else None,
