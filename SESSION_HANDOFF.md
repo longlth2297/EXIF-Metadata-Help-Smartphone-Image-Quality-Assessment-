@@ -1,10 +1,10 @@
 # SESSION HANDOFF
 
-**Updated UTC:** 2026-11-09T10:24:47Z
-**Repo path/commit:** `D:\HCMUS\Year2\Scientific Method\SC\spaq-exif-robustness` / `8855e3ff03dc8449858fc1bd33d736a2f8316ac4`, branch `phase7-hypothesis-extension`
-**Most advanced completed gate:** G7-005 (G0-G6 preserved at `baseline-v0.1`)
-**Active Kaggle kernel/version/status:** `longltrnhong/spaq-exif-robustness-smoke` / v2 / COMPLETE
-**Last valid checkpoint:** `artifacts/runs/e2_frozen_r50_s20261109/best.pt`
+**Updated UTC:** 2026-11-09T12:53:00Z
+**Repo path/commit:** `D:\HCMUS\Year2\Scientific Method\SC\spaq-exif-robustness` / `2a378d824106c0c69f9d6c718376b544b7db3561`, branch `phase7-hypothesis-extension`
+**Most advanced completed gate:** G7-007; Phase 7 complete (G0-G6 preserved at `baseline-v0.1`)
+**Active Kaggle kernel/version/status:** `longltrnhong/spaq-phase-7-cached-multiseed` / v1 / COMPLETE
+**Last valid checkpoint:** `artifacts/kaggle_download/phase7_backbone_v1/layer4_finetuned_best.pt`
 
 ## Verified completed tasks
 
@@ -36,10 +36,14 @@
 - Completed all nine E0/E1/E2 seed/model combinations without changing the baseline seed artifacts; hashes and metrics are registered in `EXPERIMENTS.csv` and per-run evidence JSON.
 - Aggregated H1/H3 exactly as preregistered: H1 is not supported because subgroup signs vary by seed; H3 is not supported because E2-E1 SRCC is negative in all three seeds.
 - Completed five-seed whole-record permutation, missingness, and inference-only feature-group diagnostics for all E1/E2 checkpoints. H2's rule passes, but its measured effect is small and is not interpreted causally.
+- Executed H4 on Kaggle Tesla T4. Frozen test SRCC is 0.85134; layer4-fine-tuned is 0.88187. All eight outputs and trainable-only checkpoint contents were independently verified.
+- Independently retrained E0/E1/E2 across all three seeds on Kaggle. All 29 outputs verify; H3 remains unsupported and additive EXIF remains seed-dependent.
+- Ran official KonIQ-trained TOPIQ-NR only after the core study. Test SRCC/PLCC/validation-calibrated MAE is 0.82005/0.82685/9.0969. Never use `topiq_nr-spaq` for this held-out comparison.
+- Updated the reproducible README, Phase 7 report, experiment registry, evidence ledger, and release validator. Final validator and 16 tests pass.
 
 ## Last operation, command and result
 
-- Last operation: completed and hash-indexed G7-003 through G7-005; local test suite passes. H4 Kaggle backbone comparison is the active task.
+- Last operation: completed G7-007, ran final tests/release validation, and prepared the final ledger commit. No Phase 7 experiment remains active.
 
 ## Failed/blocked steps
 
@@ -56,13 +60,15 @@
 
 ## Exact next commands
 
-1. Build and locally smoke-test a standalone matched frozen/layer4-fine-tuned ResNet-50 image runner.
-2. Submit it with the verified SPAQ compact dataset and pinned pretrained weights to Kaggle GPU.
-3. Retrieve and hash logs, predictions, and both checkpoints; update the Phase 7 report and release validation.
+1. `.\.venv312\Scripts\python.exe -m pytest -q`
+2. `.\.venv312\Scripts\python.exe scripts\validate_release.py`
+3. `git status --short` (expected clean after the final ledger commit)
 
 ## Warnings
 
 - Do not report paper metrics as project results.
 - Do not accept the Hugging Face archive license as proof of underlying SPAQ image rights.
 - Do not use `topiq_nr-spaq` as an unseen SPAQ comparator.
+- Local and Kaggle PyTorch/CUDA versions differ; do not claim bitwise numerical replication.
+- H4 is one seed. Do not promote it to a confirmatory general claim without preregistered replication.
 

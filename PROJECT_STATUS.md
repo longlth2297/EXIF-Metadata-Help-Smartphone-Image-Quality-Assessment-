@@ -1,14 +1,14 @@
 # PROJECT STATUS
 
-**Updated UTC:** 2026-11-09T10:24:47Z
+**Updated UTC:** 2026-11-09T12:53:00Z
 **Phase:** Phase 7 — hypothesis-driven extension
-**Last successful gate:** G7-005
-**Git commit / remote:** `8855e3ff03dc8449858fc1bd33d736a2f8316ac4` / `origin` (GitHub), branch `phase7-hypothesis-extension`
-**Kaggle kernel/version/status:** `longltrnhong/spaq-exif-robustness-smoke` / v2 / COMPLETE
+**Last successful gate:** G7-007 (Phase 7 complete)
+**Git commit / remote:** `2a378d824106c0c69f9d6c718376b544b7db3561` / `origin` (GitHub), branch `phase7-hypothesis-extension`
+**Kaggle kernel/version/status:** `longltrnhong/spaq-phase-7-cached-multiseed` / v1 / COMPLETE
 
 ## Current objective
 
-Execute the preregistered multi-seed, metadata-reliability, subgroup, and backbone-tuning experiments without altering Baseline v0.1.
+Phase 7 is execution-complete. Preserve the verified release and use the documented evidence for reporting or a separately preregistered follow-up.
 
 ## Execution-verified achievements
 
@@ -49,10 +49,15 @@ Execute the preregistered multi-seed, metadata-reliability, subgroup, and backbo
 - H2's registered pairing test is supported with small effects: intact-minus-permuted mean SRCC is +0.000351 for E1 and +0.002593 for E2, positive for all three training seeds. This is pairing sensitivity, not causal proof.
 - H3 is not supported: mean E2-E1 test delta SRCC is -0.001317 and E2 is lower on all three seeds.
 - Missingness and feature-group evaluations were executed from fixed checkpoints. Feature-group results are inference-only diagnostics, not retrained causal ablations.
+- H4 completed on Kaggle Tesla T4: frozen versus layer4-fine-tuned test SRCC 0.85134 versus 0.88187. This +0.03052 result is exploratory because it has one training seed.
+- Kaggle independently retrained all nine E0/E1/E2 seed combinations. Mean E1-E0 SRCC is -0.000057 and mean E2-E1 is -0.001646; neither comparison is positive across all seeds.
+- All 8 H4 and 29 cached-replication downloaded files match their recorded hashes; checkpoints, logs, predictions, IDs, labels, and recomputed metrics were verified.
+- Official KonIQ-trained TOPIQ-NR was explored only after core tests. Validation-only calibrated test SRCC/PLCC/MAE is 0.82005/0.82685/9.0969. The SPAQ-trained TOPIQ checkpoint was excluded.
+- Final Phase 7 release validation passes with 16 tests and all manifest, split, evidence, output-hash, ignore, and documentation contracts.
 
 ## Current task
 
-- G7-006: run the matched frozen-versus-layer4-fine-tuned backbone comparison on Kaggle and retrieve all execution artifacts.
+- No active task. G7-001 through G7-007 are complete.
 
 ## Actual blockers
 
@@ -60,13 +65,13 @@ Execute the preregistered multi-seed, metadata-reliability, subgroup, and backbo
 
 ## Observed results
 
-G0-G6 REMAIN COMPLETE AND PRESERVED AS BASELINE V0.1. G7-003 THROUGH G7-005 ARE EXECUTION-VERIFIED. H1 AND H3 FAILED THEIR REGISTERED SUPPORT RULES; H2 PASSED WITH A SMALL EFFECT. H4 IS PENDING KAGGLE EXECUTION.
+G0-G6 REMAIN COMPLETE AND PRESERVED AS BASELINE V0.1. PHASE 7 IS COMPLETE. H1 AND H3 FAILED THEIR REGISTERED SUPPORT RULES; H2 PASSED WITH A SMALL PAIRING-SENSITIVITY EFFECT. H4 FAVORED LAYER4 TUNING IN ONE EXPLORATORY SEED. KAGGLE REPLICATION AND TOPIQ EXPLORATION ARE VERIFIED.
 
 ## Next actions
 
-1. Implement and locally smoke-test the matched image-backbone runner.
-2. Execute frozen and layer4-fine-tuned arms on Kaggle GPU with identical split, seed, crops, head, and validation selection.
-3. Retrieve and hash logs, predictions, and checkpoints; then finish the Phase 7 report and release validation.
+1. Re-run `python -m pytest -q` and `scripts/validate_release.py` before publishing or merging.
+2. If extending H4, preregister at least two additional seeds before inspecting their test results.
+3. Treat external-dataset validation or device-OOD work as a new phase; it is not implied by Phase 7 completion.
 
 ## Relevant evidence and file paths
 
@@ -99,6 +104,9 @@ G0-G6 REMAIN COMPLETE AND PRESERVED AS BASELINE V0.1. G7-003 THROUGH G7-005 ARE 
 - `evidence/phase7_multiseed_summary.json`
 - `evidence/phase7_metadata_diagnostics.json`
 - `docs/PHASE7_EXPERIMENT_REPORT.md`
+- `evidence/phase7_kaggle_backbone_v1.json`
+- `evidence/phase7_kaggle_cached_v1.json`
+- `evidence/phase7_topiq_nr_koniq.json`
 - `docs/DATASET_RECOVERY.md`
 - `docs/SOURCE_AUDIT.md`
 - `EVIDENCE_LOG.md`
