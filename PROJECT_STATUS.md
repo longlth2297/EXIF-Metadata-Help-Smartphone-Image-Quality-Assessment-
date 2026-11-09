@@ -1,14 +1,14 @@
 # PROJECT STATUS
 
-**Updated UTC:** 2026-11-09T10:07:23Z
-**Phase:** Phase 6 — COMPLETE
-**Last successful gate:** G6
-**Git commit / remote:** `f77f1f31ebc95ac25860123bd1080a1d674bf20e` / `origin` (GitHub)
+**Updated UTC:** 2026-11-09T10:16:43Z
+**Phase:** Phase 7 — hypothesis-driven extension
+**Last successful gate:** G7-002
+**Git commit / remote:** `3c01b6fcdc77c21b99823f08e4e8214b78837fe2` / `origin` (GitHub), branch `phase7-hypothesis-extension`
 **Kaggle kernel/version/status:** `longltrnhong/spaq-exif-robustness-smoke` / v2 / COMPLETE
 
 ## Current objective
 
-Preserve the completed reproducible research package; `main` now tracks the GitHub `origin/main` branch.
+Execute the preregistered multi-seed, metadata-reliability, subgroup, and backbone-tuning experiments without altering Baseline v0.1.
 
 ## Execution-verified achievements
 
@@ -42,10 +42,12 @@ Preserve the completed reproducible research package; `main` now tracks the GitH
 - Release validation passed: canonical manifest/hash/counts/group isolation, eight evidence statuses, ten analysis-output hashes, three Kaggle-output hashes, ignore policy, required documents, 16 tests, and dependency consistency.
 - Kaggle OAuth is established for `longltrnhong`. Private dataset `longltrnhong/spaq-compact-verified` contains the verified manifest and all 11,125 expanded compact images.
 - Kaggle smoke v2 completed on Tesla T4: 300-image inference 11.09 s, 20 train steps 2.39 s, 580 MB peak allocation, checkpoint reload and optimizer resume successful. Downloaded artifacts match recorded hashes.
+- Baseline v0.1 is preserved at tag `baseline-v0.1`; all E0-E4 artifacts revalidated by SHA-256. Existing results are explicitly frozen-feature, not full fine-tuning.
+- Phase 7 hypotheses and acceptance criteria were preregistered before new test execution in `configs/phase7_experiments.json`.
 
 ## Current task
 
-- All G0-G6 research gates are complete and the repository is pushed to GitHub.
+- G7-003: run the two additional E0/E1/E2 training seeds while retaining seed 20261109 as the immutable first replicate.
 
 ## Actual blockers
 
@@ -53,13 +55,13 @@ Preserve the completed reproducible research package; `main` now tracks the GitH
 
 ## Observed results
 
-G0-G6 ARE COMPLETE. THE KAGGLE GPU SMOKE IS EXECUTION-VERIFIED AND RETRIEVED; THE SCIENTIFIC CONCLUSIONS REMAIN THE RESOURCE-ADAPTED E0-E4 RESULTS REPORTED ABOVE.
+G0-G6 REMAIN COMPLETE AND PRESERVED AS BASELINE V0.1. PHASE 7 IS ACTIVE; NO NEW NUMERICAL CLAIM HAS YET BEEN ACCEPTED.
 
 ## Next actions
 
-1. Keep the Kaggle dataset/kernel private unless the user explicitly changes visibility.
-2. For future work, repeat training seeds before making stronger optimization-variance claims.
-3. Push future changes through the configured `origin/main` upstream.
+1. Run E0/E1/E2 for seeds 20261110 and 20261111.
+2. Execute correct-pair permutation and feature-group diagnostics from fixed checkpoints.
+3. Aggregate subgroup/missingness evidence, then run the matched backbone pair on Kaggle.
 
 ## Relevant evidence and file paths
 
@@ -86,6 +88,9 @@ G0-G6 ARE COMPLETE. THE KAGGLE GPU SMOKE IS EXECUTION-VERIFIED AND RETRIEVED; TH
 - `docs/EXPERIMENT_REPORT.md`
 - `docs/ACCEPTANCE_AUDIT.md`
 - `evidence/kaggle_smoke_v2.json`
+- `evidence/phase7_baseline_v01_audit.json`
+- `configs/phase7_experiments.json`
+- `docs/RESEARCH_DIRECTION.md`
 - `docs/DATASET_RECOVERY.md`
 - `docs/SOURCE_AUDIT.md`
 - `EVIDENCE_LOG.md`

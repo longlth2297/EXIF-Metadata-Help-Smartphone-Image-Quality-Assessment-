@@ -1,8 +1,8 @@
 # SESSION HANDOFF
 
-**Updated UTC:** 2026-11-09T10:07:23Z
-**Repo path/commit:** `D:\HCMUS\Year2\Scientific Method\SC\spaq-exif-robustness` / `f77f1f31ebc95ac25860123bd1080a1d674bf20e`
-**Most advanced completed gate:** G6
+**Updated UTC:** 2026-11-09T10:16:43Z
+**Repo path/commit:** `D:\HCMUS\Year2\Scientific Method\SC\spaq-exif-robustness` / `3c01b6fcdc77c21b99823f08e4e8214b78837fe2`, branch `phase7-hypothesis-extension`
+**Most advanced completed gate:** G7-002 (G0-G6 preserved at `baseline-v0.1`)
 **Active Kaggle kernel/version/status:** `longltrnhong/spaq-exif-robustness-smoke` / v2 / COMPLETE
 **Last valid checkpoint:** `artifacts/runs/e2_frozen_r50_s20261109/best.pt`
 
@@ -32,10 +32,11 @@
 - Completed README, experiment report, Kaggle runbook, acceptance audit, and automated release validation. Sixteen tests and dependency checks pass.
 - Established Kaggle OAuth and uploaded the verified compact dataset privately. Kaggle expanded the tar into 11,125 images; v2 verifies the deterministic tree hash of the exact 300-image smoke sample.
 - Kaggle v1 timed out during the overly broad full-tree integrity scan. Controlled v2 verified the exact 300-image smoke sample, completed on Tesla T4, and produced downloaded/hash-verified checkpoint, summary, and log artifacts.
+- Tagged and re-audited Baseline v0.1; all E0-E4 artifacts match their recorded hashes. Preregistered Phase 7 before new test execution.
 
 ## Last operation, command and result
 
-- Last operation: downloaded Kaggle v2 outputs to `artifacts/kaggle_download/v2`; checkpoint SHA-256 `a7c69a6e...b487f` matches the remote summary.
+- Last operation: wrote `evidence/phase7_baseline_v01_audit.json` and the Phase 7 preregistration/research-direction documents; no new Phase 7 test result exists yet.
 
 ## Failed/blocked steps
 
@@ -52,9 +53,9 @@
 
 ## Exact next commands
 
-1. No required research work remains.
-2. Keep Kaggle dataset/kernel private unless visibility change is explicitly requested.
-3. Use the configured `origin/main` upstream for future commits.
+1. Run E0/E1/E2 seeds 20261110 and 20261111 with distinct `phase7_*` output paths.
+2. Aggregate correct-pair permutation, feature groups, subgroup, and missingness evidence.
+3. Run the matched backbone pair on Kaggle; retrieve and hash all outputs.
 
 ## Warnings
 

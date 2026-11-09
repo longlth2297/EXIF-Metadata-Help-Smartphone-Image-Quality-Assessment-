@@ -32,3 +32,9 @@
 - **Reason:** E2 does not reliably improve E1 under paired bootstrap, while E3/E4 metadata dropout is neutral or harmful and missingness degradation remains small.
 - **Evidence:** `evidence/analysis_summary_s20261109.json`; `evidence/missingness_all_s20261109.json`.
 
+## D-0006 — 2026-11-09 — Preserve Baseline v0.1 and preregister Phase 7
+
+- **Decision:** Tag the verified G0-G6 state as `baseline-v0.1`, develop only on `phase7-hypothesis-extension`, and freeze Phase 7 seeds/contrasts before generating new test results.
+- **Reason:** Separates immutable one-seed evidence from new confirmatory work and prevents post-test changes to thresholds or acceptance rules.
+- **Evidence:** `evidence/phase7_baseline_v01_audit.json`; `configs/phase7_experiments.json`.
+

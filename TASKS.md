@@ -38,3 +38,13 @@ Legend: `TODO`, `IN_PROGRESS`, `DONE`, `FAILED`, `BLOCKED`, `NOT_APPLICABLE`. Ev
 
 - [x] **G6-001 DONE** Completed README reproduction guide, experiment report, acceptance audit, release validator, Kaggle evidence retrieval, and context-independent handoff. Only optional GitHub publication remains. Evidence: `evidence/release_validation.json`, `docs/ACCEPTANCE_AUDIT.md`.
 
+## Phase 7 — hypothesis-driven extension
+
+- [x] **G7-001 DONE** Preserved completed E0-E4 as tag `baseline-v0.1`; verified every baseline config/checkpoint/log/prediction hash and documented the frozen-feature limitation. Evidence: `evidence/phase7_baseline_v01_audit.json`.
+- [x] **G7-002 DONE** Preregistered H1-H4 seeds, variables, controls, subgroup definitions, permutation seeds, metrics, and acceptance rules before new test execution. Evidence: `configs/phase7_experiments.json`, `docs/RESEARCH_DIRECTION.md`.
+- [ ] **G7-003 IN_PROGRESS** Execute matched E0/E1/E2 on three training seeds and aggregate confirmatory contrasts.
+- [ ] **G7-004 TODO** Execute correct-pair EXIF permutation and feature-group ablation diagnostics.
+- [ ] **G7-005 TODO** Aggregate missingness and capture-condition results across seeds.
+- [ ] **G7-006 TODO** Run matched frozen versus layer4-fine-tuned backbone comparison on Kaggle and retrieve artifacts.
+- [ ] **G7-007 TODO** Complete Phase 7 report, figures, release validation, and branch push.
+
