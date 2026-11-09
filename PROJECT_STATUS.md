@@ -1,14 +1,14 @@
 # PROJECT STATUS
 
-**Updated UTC:** 2026-11-09T04:41:17Z
-**Phase:** Phase 6 — deliverable (G6)
-**Last successful gate:** G5
-**Git commit / remote:** `cf188f3eb8a14671cb576002e3b5c2a332fcf578` / NONE
+**Updated UTC:** 2026-11-09T04:50:05Z
+**Phase:** Phase 6 — local deliverable complete; external execution blocked
+**Last successful gate:** G6_LOCAL
+**Git commit / remote:** `a1a2e8edb6014afb419e33ce4e2d111ada0f106f` / NONE
 **Kaggle kernel/version/status:** NONE / Kaggle CLI 2.2.5 installed, authentication absent
 
 ## Current objective
 
-Complete the reproducible report, runbook, acceptance audit, final validation, and context-independent handoff.
+Obtain user Kaggle OAuth, execute/retrieve the prepared remote smoke kernel, and record its real run identifiers and hardware evidence.
 
 ## Execution-verified achievements
 
@@ -39,10 +39,11 @@ Complete the reproducible report, runbook, acceptance audit, final validation, a
 - A 10,000-resample paired bootstrap found E1-E0 delta SRCC 0.00565, 95% CI [0.00132, 0.01013]. E2-E1 crosses zero on SRCC/PLCC/MAE; no reliable gated advantage was detected.
 - Capture-condition subsets contain 235 high-ISO, 316 long-exposure, and 191 night-scene test images. E1 leads the first two by SRCC; E2 narrowly leads night scenes. These are descriptive subgroup results.
 - Seven figures, paired tables, and a deterministic 20-case E1 error audit are hash-indexed in `evidence/analysis_summary_s20261109.json`.
+- Release validation passed: canonical manifest hash/11,125 unique rows/split counts/zero group crossings, seven core evidence statuses, ten analysis-output hashes, five ignore-policy targets, required documents, 16 tests, and dependency consistency.
 
 ## Current task
 
-- G6-001: final report, reproduction guide, acceptance audit, and handoff.
+- G2-002: Kaggle remote smoke remains blocked pending user OAuth. All independent local work and the G6 deliverable are complete.
 
 ## Actual blockers
 
@@ -51,13 +52,13 @@ Complete the reproducible report, runbook, acceptance audit, final validation, a
 
 ## Observed results
 
-G5 IS COMPLETE. E1 HAS A SMALL PAIRED-SAMPLING ADVANTAGE OVER E0; E2 DOES NOT RELIABLY IMPROVE E1, AND METADATA DROPOUT DOES NOT HELP. KAGGLE REMAINS AUTH-BLOCKED.
+THE LOCAL G6 DELIVERABLE IS COMPLETE AND VALIDATED. E1 HAS A SMALL PAIRED-SAMPLING ADVANTAGE OVER E0; E2 DOES NOT RELIABLY IMPROVE E1, AND METADATA DROPOUT DOES NOT HELP. KAGGLE REMAINS AUTH-BLOCKED.
 
 ## Next actions
 
-1. Write the experiment report and complete README reproduction commands.
-2. Audit every acceptance item and validate commands/tests from persisted state.
-3. Commit the final handoff; retain Kaggle as externally blocked until OAuth.
+1. User runs `.\.venv\Scripts\kaggle.exe auth login` interactively.
+2. Follow `docs/KAGGLE_RUNBOOK.md` to push, wait, retrieve, hash, and record the real smoke output.
+3. Optionally install/authenticate GitHub CLI and create a private remote; do not expose secrets or change visibility.
 
 ## Relevant evidence and file paths
 
@@ -80,6 +81,9 @@ G5 IS COMPLETE. E1 HAS A SMALL PAIRED-SAMPLING ADVANTAGE OVER E0; E2 DOES NOT RE
 - `evidence/analysis_summary_s20261109.json`
 - `evidence/paired_bootstrap_s20261109.csv`
 - `evidence/subgroup_metrics_s20261109.csv`
+- `evidence/release_validation.json`
+- `docs/EXPERIMENT_REPORT.md`
+- `docs/ACCEPTANCE_AUDIT.md`
 - `docs/DATASET_RECOVERY.md`
 - `docs/SOURCE_AUDIT.md`
 - `EVIDENCE_LOG.md`

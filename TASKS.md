@@ -36,5 +36,5 @@ Legend: `TODO`, `IN_PROGRESS`, `DONE`, `FAILED`, `BLOCKED`, `NOT_APPLICABLE`. Ev
 
 ## Phase 6 — deliverable
 
-- [ ] **G6-001 IN_PROGRESS** Clean reproduction commands, report, acceptance audit, artifact hashes, safe remote push, and final handoff.
+- [x] **G6-001 DONE** Completed README reproduction guide, experiment report, acceptance audit, release validator, and context-independent handoff. External Kaggle OAuth and GitHub remote remain explicitly blocked. Evidence: `evidence/release_validation.json`, `docs/ACCEPTANCE_AUDIT.md`.
 

@@ -1,8 +1,8 @@
 # SESSION HANDOFF
 
-**Updated UTC:** 2026-11-09T04:41:17Z
-**Repo path/commit:** `D:\HCMUS\Year2\Scientific Method\SC\spaq-exif-robustness` / `cf188f3eb8a14671cb576002e3b5c2a332fcf578`
-**Most advanced completed gate:** G5
+**Updated UTC:** 2026-11-09T04:50:05Z
+**Repo path/commit:** `D:\HCMUS\Year2\Scientific Method\SC\spaq-exif-robustness` / `a1a2e8edb6014afb419e33ce4e2d111ada0f106f`
+**Most advanced completed gate:** G6_LOCAL
 **Active Kaggle kernel/version/status:** NONE / BLOCKED_ON_USER_AUTH  
 **Last valid checkpoint:** `artifacts/runs/e2_frozen_r50_s20261109/best.pt`
 
@@ -29,10 +29,11 @@
 - Extended missingness evaluation to all metadata models; E2 falls to 0.83290 SRCC and E4 to 0.82813 at zero available EXIF.
 - Completed 10,000-resample paired inference: E1-E0 SRCC delta 0.00565 [0.00132, 0.01013]; all E2-E1 metric intervals cross zero.
 - Completed train-defined high-ISO (n=235), long-exposure (n=316), and night-scene (n=191) analysis, deterministic top-error audit, and seven hashed figures.
+- Completed README, experiment report, Kaggle runbook, acceptance audit, and automated release validation. Sixteen tests and dependency checks pass.
 
 ## Last operation, command and result
 
-- Last operation: wrote `evidence/analysis_summary_s20261109.json`, paired/subgroup/error tables, and seven report figures.
+- Last operation: `scripts/validate_release.py` wrote `evidence/release_validation.json` with status `SUCCESS`; tests and `pip check` passed.
 
 ## Failed/blocked steps
 
@@ -49,9 +50,9 @@
 
 ## Exact next commands
 
-1. Complete `docs/EXPERIMENT_REPORT.md`, README, Kaggle runbook, and acceptance audit.
-2. Run final tests and reproduction checks; commit the G6 handoff.
-3. Keep Kaggle state `BLOCKED_ON_USER_AUTH` until OAuth.
+1. User executes `.\.venv\Scripts\kaggle.exe auth login` interactively.
+2. Follow `docs/KAGGLE_RUNBOOK.md` to run/retrieve the smoke and record kernel/version/hashes.
+3. If desired, install/authenticate `gh` and create a private remote; local history is otherwise complete.
 
 ## Warnings
 
