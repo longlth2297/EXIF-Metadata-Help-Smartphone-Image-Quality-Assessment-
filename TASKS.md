@@ -45,6 +45,6 @@ Legend: `TODO`, `IN_PROGRESS`, `DONE`, `FAILED`, `BLOCKED`, `NOT_APPLICABLE`. Ev
 - [x] **G7-003 DONE** Executed matched E0/E1/E2 on three training seeds and aggregated preregistered contrasts. Evidence: `evidence/phase7_multiseed_summary.json`.
 - [x] **G7-004 DONE** Executed correct-pair EXIF permutation plus inference-only feature-group leave-out/only diagnostics on all E1/E2 checkpoints. Evidence: `evidence/phase7_metadata_diagnostics.json`.
 - [x] **G7-005 DONE** Aggregated missingness and train-defined capture-condition results across all three seeds. Evidence: `evidence/phase7_multiseed_summary.json`, `evidence/phase7_metadata_diagnostics.json`.
-- [ ] **G7-006 IN_PROGRESS** Run matched frozen versus layer4-fine-tuned backbone comparison on Kaggle and retrieve artifacts.
-- [ ] **G7-007 TODO** Complete Phase 7 report, figures, release validation, and branch push.
+- [x] **G7-006 DONE** Ran the matched frozen versus layer4-fine-tuned ResNet-50 pair on Kaggle Tesla T4 and independently verified all downloaded logs, predictions, and checkpoints. Evidence: `evidence/phase7_kaggle_backbone_v1.json`.
+- [ ] **G7-007 IN_PROGRESS** Complete cached-head Kaggle replication, Phase 7 report, figures, release validation, and branch push.
 

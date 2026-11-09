@@ -6,6 +6,7 @@ venv/
 **/kaggle.json
 kaggle/kernel/kernel-metadata.json
 kaggle/phase7_backbone/kernel-metadata.json
+kaggle/phase7_cached/kernel-metadata.json
 *.token
 
 # Python
