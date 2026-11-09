@@ -5,6 +5,7 @@
 venv/
 **/kaggle.json
 kaggle/kernel/kernel-metadata.json
+kaggle/phase7_backbone/kernel-metadata.json
 *.token
 
 # Python
@@ -24,6 +25,7 @@ artifacts/checkpoints/
 artifacts/features/
 artifacts/kaggle_download/
 artifacts/kaggle_dataset_upload/
+artifacts/kaggle_phase7_assets/
 artifacts/runs/
 *.pt
 *.pth
