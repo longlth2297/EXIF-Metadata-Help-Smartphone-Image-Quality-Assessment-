@@ -25,7 +25,7 @@ from torchvision.transforms import v2
 WORKING = Path("/kaggle/working")
 INPUT = Path("/kaggle/input")
 EXPECTED_MANIFEST_SHA256 = "abff8b1a5f7d2e74d0c8874655fbe40d5e75de75bf61e65753c7085cee15800d"
-EXPECTED_IMAGE_TREE_SHA256 = "50d85e3588be9582bcc03ead9d96bef9e24c22652715b507fda6f7f64b2ecf24"
+EXPECTED_SAMPLE_TREE_SHA256 = "cb2fe0f3a59efda58deefc4ed2af8ad4bcf7ef84fc8c5a8bd6fc7d27c4098f5d"
 
 
 def sha256(path: Path) -> str:
@@ -61,15 +61,15 @@ def locate_one(pattern: str) -> Path:
     return matches[0]
 
 
-def image_tree_sha256(image_root: Path) -> tuple[str, int]:
-    """Hash sorted filename + per-file digest, independent of container format."""
-    images = sorted(image_root.glob("*.jpg"))
+def image_tree_sha256(image_root: Path, image_names: list[str]) -> str:
+    """Hash selected filename + per-file digest, independent of container format."""
     digest = hashlib.sha256()
-    for path in images:
-        digest.update(path.name.encode("utf-8"))
+    for image_name in image_names:
+        path = image_root / image_name
+        digest.update(image_name.encode("utf-8"))
         digest.update(b"\0")
         digest.update(bytes.fromhex(sha256(path)))
-    return digest.hexdigest(), len(images)
+    return digest.hexdigest()
 
 
 def main() -> None:
@@ -97,20 +97,23 @@ def main() -> None:
                 temporary.write_bytes(source.read())
                 os.replace(temporary, target)
         extract_seconds = time.perf_counter() - extract_started
-        image_tree_hash = None
-        input_image_count = None
+        input_image_count = 300
     else:
         input_mode = "kaggle_expanded_tar"
         first_image = locate_one("**/00001.jpg")
         image_root = first_image.parent
         integrity_started = time.perf_counter()
-        image_tree_hash, input_image_count = image_tree_sha256(image_root)
-        extract_seconds = 0.0
+        input_image_count = len(list(image_root.glob("*.jpg")))
         integrity_seconds = time.perf_counter() - integrity_started
-        if input_image_count != 11125 or image_tree_hash != EXPECTED_IMAGE_TREE_SHA256:
-            raise RuntimeError(
-                f"Expanded image integrity mismatch: count={input_image_count}, hash={image_tree_hash}"
-            )
+        extract_seconds = 0.0
+        if input_image_count != 11125:
+            raise RuntimeError(f"Expanded image count mismatch: {input_image_count}")
+
+    integrity_started = time.perf_counter()
+    sample_tree_hash = image_tree_sha256(image_root, sample.image_name.tolist())
+    integrity_seconds = time.perf_counter() - integrity_started
+    if sample_tree_hash != EXPECTED_SAMPLE_TREE_SHA256:
+        raise RuntimeError(f"300-image sample integrity mismatch: {sample_tree_hash}")
 
     dataset = Images(sample, image_root)
     loader = DataLoader(dataset, batch_size=16, shuffle=False, num_workers=2, pin_memory=True)
@@ -185,9 +188,9 @@ def main() -> None:
         "working_disk_free_bytes": disk.free,
         "input_mode": input_mode,
         "input_image_count": input_image_count,
-        "image_tree_sha256": image_tree_hash,
-        "expected_image_tree_sha256": EXPECTED_IMAGE_TREE_SHA256,
-        "integrity_seconds": integrity_seconds if input_mode == "kaggle_expanded_tar" else None,
+        "sample_tree_sha256": sample_tree_hash,
+        "expected_sample_tree_sha256": EXPECTED_SAMPLE_TREE_SHA256,
+        "integrity_seconds": integrity_seconds,
         "manifest_sha256": manifest_hash,
         "sample_count": 300,
         "extract_seconds": extract_seconds,
