@@ -1,14 +1,14 @@
 # PROJECT STATUS
 
-**Updated UTC:** 2026-11-09T04:50:05Z
-**Phase:** Phase 6 — local deliverable complete; external execution blocked
+**Updated UTC:** 2026-11-09T07:15:53Z
+**Phase:** Phase 6 — Kaggle smoke execution
 **Last successful gate:** G6_LOCAL
-**Git commit / remote:** `a1a2e8edb6014afb419e33ce4e2d111ada0f106f` / NONE
-**Kaggle kernel/version/status:** NONE / Kaggle CLI 2.2.5 installed, authentication absent
+**Git commit / remote:** `dd0161c075c325777399379b939403bb4e8e21be` / NONE
+**Kaggle kernel/version/status:** `longltrnhong/spaq-exif-robustness-smoke` / v1 / RUNNING
 
 ## Current objective
 
-Obtain user Kaggle OAuth, execute/retrieve the prepared remote smoke kernel, and record its real run identifiers and hardware evidence.
+Monitor the real Kaggle GPU smoke, retrieve outputs, verify hashes, and close the remaining remote execution gate.
 
 ## Execution-verified achievements
 
@@ -40,6 +40,7 @@ Obtain user Kaggle OAuth, execute/retrieve the prepared remote smoke kernel, and
 - Capture-condition subsets contain 235 high-ISO, 316 long-exposure, and 191 night-scene test images. E1 leads the first two by SRCC; E2 narrowly leads night scenes. These are descriptive subgroup results.
 - Seven figures, paired tables, and a deterministic 20-case E1 error audit are hash-indexed in `evidence/analysis_summary_s20261109.json`.
 - Release validation passed: canonical manifest hash/11,125 unique rows/split counts/zero group crossings, seven core evidence statuses, ten analysis-output hashes, five ignore-policy targets, required documents, 16 tests, and dependency consistency.
+- Kaggle OAuth is established for `longltrnhong`. Private dataset `longltrnhong/spaq-compact-verified` is ready with the verified manifest and all 11,125 expanded compact images. Kernel v1 is running.
 
 ## Current task
 
@@ -47,18 +48,17 @@ Obtain user Kaggle OAuth, execute/retrieve the prepared remote smoke kernel, and
 
 ## Actual blockers
 
-- Kaggle execution requires user OAuth outside tracked files; the CLI reports `Authentication required`.
 - GitHub remote creation currently requires installing/authenticating `gh` or configuring another safe authenticated route.
 
 ## Observed results
 
-THE LOCAL G6 DELIVERABLE IS COMPLETE AND VALIDATED. E1 HAS A SMALL PAIRED-SAMPLING ADVANTAGE OVER E0; E2 DOES NOT RELIABLY IMPROVE E1, AND METADATA DROPOUT DOES NOT HELP. KAGGLE REMAINS AUTH-BLOCKED.
+THE LOCAL G6 DELIVERABLE IS COMPLETE AND VALIDATED. KAGGLE OAUTH/DATASET SETUP SUCCEEDED AND GPU SMOKE V1 IS RUNNING; NO REMOTE RESULT IS CLAIMED UNTIL OUTPUT RETRIEVAL.
 
 ## Next actions
 
-1. User runs `.\.venv\Scripts\kaggle.exe auth login` interactively.
-2. Follow `docs/KAGGLE_RUNBOOK.md` to push, wait, retrieve, hash, and record the real smoke output.
-3. Optionally install/authenticate GitHub CLI and create a private remote; do not expose secrets or change visibility.
+1. Poll kernel v1 until terminal status.
+2. Retrieve output, validate `smoke_summary.json` and checkpoint hashes, then update all ledgers.
+3. Optionally install/authenticate GitHub CLI and create a private remote.
 
 ## Relevant evidence and file paths
 

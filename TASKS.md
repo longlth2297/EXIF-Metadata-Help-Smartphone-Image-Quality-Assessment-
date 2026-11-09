@@ -17,7 +17,7 @@ Legend: `TODO`, `IN_PROGRESS`, `DONE`, `FAILED`, `BLOCKED`, `NOT_APPLICABLE`. Ev
 ## Phase 2 — vertical slice and compute smoke
 
 - [x] **G2-001 DONE** Ran 16-image ResNet-50 forward/backward, 20 updates, atomic checkpoint, bit-exact reload evaluation, optimizer resume, and four-image overfit sanity; 12 tests pass. Evidence: `evidence/g2_vertical_slice.json`, `evidence/g2_tiny_overfit.json`.
-- [ ] **G2-002 BLOCKED** Run Kaggle smoke with GPU, 300-sample timing, 20 train steps, VRAM, checkpoint resume, output retrieval, and runtime projection. Blocker: CLI/auth not yet established. Runnable preparation proceeds offline.
+- [ ] **G2-002 IN_PROGRESS** Kaggle OAuth established; private verified input dataset created; GPU smoke kernel `longltrnhong/spaq-exif-robustness-smoke` version 1 is running.
 
 ## Phase 3 — matched baselines
 

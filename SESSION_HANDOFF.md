@@ -1,9 +1,9 @@
 # SESSION HANDOFF
 
-**Updated UTC:** 2026-11-09T04:50:05Z
-**Repo path/commit:** `D:\HCMUS\Year2\Scientific Method\SC\spaq-exif-robustness` / `a1a2e8edb6014afb419e33ce4e2d111ada0f106f`
+**Updated UTC:** 2026-11-09T07:15:53Z
+**Repo path/commit:** `D:\HCMUS\Year2\Scientific Method\SC\spaq-exif-robustness` / `dd0161c075c325777399379b939403bb4e8e21be`
 **Most advanced completed gate:** G6_LOCAL
-**Active Kaggle kernel/version/status:** NONE / BLOCKED_ON_USER_AUTH  
+**Active Kaggle kernel/version/status:** `longltrnhong/spaq-exif-robustness-smoke` / v1 / RUNNING  
 **Last valid checkpoint:** `artifacts/runs/e2_frozen_r50_s20261109/best.pt`
 
 ## Verified completed tasks
@@ -30,10 +30,11 @@
 - Completed 10,000-resample paired inference: E1-E0 SRCC delta 0.00565 [0.00132, 0.01013]; all E2-E1 metric intervals cross zero.
 - Completed train-defined high-ISO (n=235), long-exposure (n=316), and night-scene (n=191) analysis, deterministic top-error audit, and seven hashed figures.
 - Completed README, experiment report, Kaggle runbook, acceptance audit, and automated release validation. Sixteen tests and dependency checks pass.
+- Established Kaggle OAuth; uploaded the verified compact dataset privately. Kaggle expanded the tar into 11,125 images, so the runner was adapted to verify a deterministic whole-tree hash. GPU kernel v1 is running.
 
 ## Last operation, command and result
 
-- Last operation: `scripts/validate_release.py` wrote `evidence/release_validation.json` with status `SUCCESS`; tests and `pip check` passed.
+- Last operation: submitted Kaggle GPU smoke v1; latest observed status is `KernelWorkerStatus.RUNNING`.
 
 ## Failed/blocked steps
 
@@ -50,9 +51,9 @@
 
 ## Exact next commands
 
-1. User executes `.\.venv\Scripts\kaggle.exe auth login` interactively.
-2. Follow `docs/KAGGLE_RUNBOOK.md` to run/retrieve the smoke and record kernel/version/hashes.
-3. If desired, install/authenticate `gh` and create a private remote; local history is otherwise complete.
+1. Poll `.\.venv\Scripts\kaggle.exe kernels status longltrnhong/spaq-exif-robustness-smoke`.
+2. On completion, download to `artifacts/kaggle_download/v1`, verify summary/checkpoint, and update ledgers.
+3. If desired, install/authenticate `gh` and create a private remote.
 
 ## Warnings
 
