@@ -32,4 +32,7 @@
 | 2026-11-08T20:52:10Z | E1 additive EXIF matched run completed | EXECUTION_VERIFIED | 16 additional parameters; test SRCC/PLCC/MAE 0.83613/0.83572/9.1942 | `evidence/e1_frozen_r50_s20261109.json` |
 | 2026-11-08T20:52:31Z | E3 additive EXIF plus 50% metadata dropout completed | EXECUTION_VERIFIED | Test SRCC/PLCC/MAE 0.83450/0.83452/9.2534 | `evidence/e3_frozen_r50_s20261109.json` |
 | 2026-11-08T20:53:54Z | E1/E3 missingness curves executed on identical test IDs | EXECUTION_VERIFIED | Five fixed masks at 25/50%; E1 SRCC 0.83613→0.83579 and E3 0.83450→0.83432 from 0→100% missing; dropout gave no robustness advantage | `evidence/missingness_e1_e3_s20261109.json` |
+| 2026-11-09T04:31:47Z | E2 gated EXIF matched run completed | EXECUTION_VERIFIED | 8,704 metadata parameters; best epoch 45; test SRCC/PLCC/MAE 0.83602/0.83779/9.1179 | `evidence/e2_frozen_r50_s20261109.json` |
+| 2026-11-09T04:31:47Z | E4 gated EXIF plus 50% metadata dropout completed | EXECUTION_VERIFIED | Best epoch 37; test SRCC/PLCC/MAE 0.83208/0.83337/9.3265 | `evidence/e4_frozen_r50_s20261109.json` |
+| 2026-11-09T04:31:47Z | Missingness curves executed for E1/E2/E3/E4 on identical test IDs | EXECUTION_VERIFIED | E2 SRCC 0.83602→0.83290 and E4 0.83208→0.82813 from 0→100% missing; dropout did not improve gated robustness | `evidence/missingness_all_s20261109.json` |
 

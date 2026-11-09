@@ -1,14 +1,14 @@
 # PROJECT STATUS
 
-**Updated UTC:** 2026-11-09T04:26:04Z
-**Phase:** Phase 4 — controlled extensions (G4)
-**Last successful gate:** G3
-**Git commit / remote:** `539261783524d6b0b3828247cefad915b8eac41b` / NONE
+**Updated UTC:** 2026-11-09T04:31:47Z
+**Phase:** Phase 5 — analysis (G5)
+**Last successful gate:** G4
+**Git commit / remote:** `40a96792662b8e0707c34966eafe1b6bc8b969ca` / NONE
 **Kaggle kernel/version/status:** NONE / Kaggle CLI 2.2.5 installed, authentication absent
 
 ## Current objective
 
-Run E2 gated fusion and E4 gated-plus-dropout as matched ablations, then evaluate whether added mechanism or dropout produces a measured benefit.
+Quantify paired uncertainty, capture-condition subgroup behavior, missingness robustness, and failure cases for the completed E0-E4 matched experiments.
 
 ## Execution-verified achievements
 
@@ -34,10 +34,12 @@ Run E2 gated fusion and E4 gated-plus-dropout as matched ablations, then evaluat
 - Frozen ResNet-50 features for all 11,125 rows were extracted once at 92.89 images/s; cache SHA-256 is `b639bb6f...975ed`.
 - E0 test SRCC/PLCC/MAE: 0.83048/0.83063/9.3489. E1 additive EXIF: 0.83613/0.83572/9.1942. E3 additive plus dropout: 0.83450/0.83452/9.2534.
 - Missingness stress shows a very small metadata contribution: E1 SRCC falls only 0.00034 from full to zero EXIF; E3 falls 0.00018 and does not outperform E1 at any availability level.
+- E2 gated fusion completed with 8,704 metadata parameters: test SRCC/PLCC/MAE 0.83602/0.83779/9.1179. It is effectively tied with E1 on SRCC while improving PLCC and MAE in this seed.
+- E4 gated plus 50% metadata dropout completed at 0.83208/0.83337/9.3265, below E2 and E1. E2 SRCC declines to 0.83290 at 100% metadata missingness; E4 declines to 0.82813.
 
 ## Current task
 
-- G4-002: implement and run the matched E2 gated-fusion ablation.
+- G5-001: paired bootstrap, capture-condition subgroups, failure analysis, and figures.
 
 ## Actual blockers
 
@@ -46,13 +48,13 @@ Run E2 gated fusion and E4 gated-plus-dropout as matched ablations, then evaluat
 
 ## Observed results
 
-G3 IS COMPLETE ON THE RESOURCE-ADAPTED TRACK. E1 SHOWS A SMALL ONE-SEED IMPROVEMENT OVER E0; E3 DROPOUT DOES NOT IMPROVE E1 ROBUSTNESS. KAGGLE REMAINS AUTH-BLOCKED.
+G4 IS COMPLETE ON THE RESOURCE-ADAPTED TRACK. ADDITIVE E1 AND GATED E2 ARE NEAR-TIED ON SRCC; E2 HAS THE BEST PLCC/MAE. METADATA DROPOUT HURTS BOTH FUSION FORMS. KAGGLE REMAINS AUTH-BLOCKED.
 
 ## Next actions
 
-1. Implement parameter-documented E2 gating and E4 gating plus 50% metadata dropout.
-2. Run both with the same cache, split, seed, budget, validation selection, and test policy.
-3. Compute paired uncertainty for fixed confirmatory contrasts; keep single-seed limits explicit.
+1. Compute paired uncertainty for fixed confirmatory contrasts; keep single-seed limits explicit.
+2. Evaluate predeclared train-threshold capture-condition subgroups and inspect largest held-out errors.
+3. Produce evidence figures and complete the acceptance audit.
 
 ## Relevant evidence and file paths
 
@@ -69,7 +71,9 @@ G3 IS COMPLETE ON THE RESOURCE-ADAPTED TRACK. E1 SHOWS A SMALL ONE-SEED IMPROVEM
 - `evidence/e0_frozen_r50_s20261109.json`
 - `evidence/e1_frozen_r50_s20261109.json`
 - `evidence/e3_frozen_r50_s20261109.json`
-- `evidence/missingness_e1_e3_s20261109.json`
+- `evidence/e2_frozen_r50_s20261109.json`
+- `evidence/e4_frozen_r50_s20261109.json`
+- `evidence/missingness_all_s20261109.json`
 - `docs/DATASET_RECOVERY.md`
 - `docs/SOURCE_AUDIT.md`
 - `EVIDENCE_LOG.md`

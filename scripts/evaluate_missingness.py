@@ -13,7 +13,7 @@ import pandas as pd
 import torch
 
 from spaq_iqa.metrics import regression_metrics
-from spaq_iqa.models import CachedFeatureRegressor
+from spaq_iqa.models import CachedFeatureRegressor, CachedGatedRegressor
 
 
 APEX_COLUMNS = [
@@ -34,7 +34,11 @@ def sha256(path: Path) -> str:
 
 def load_model(checkpoint: Path, device: torch.device):
     payload = torch.load(checkpoint, map_location=device, weights_only=False)
-    model = CachedFeatureRegressor(metadata=True).to(device)
+    model = (
+        CachedGatedRegressor()
+        if payload["config"].get("fusion") == "gated_hidden_256"
+        else CachedFeatureRegressor(metadata=True)
+    ).to(device)
     model.load_state_dict(payload["model_state"])
     model.eval()
     return model, payload["config"]
@@ -46,6 +50,8 @@ def main() -> None:
     parser.add_argument("--features", type=Path, required=True)
     parser.add_argument("--e1-checkpoint", type=Path, required=True)
     parser.add_argument("--e3-checkpoint", type=Path, required=True)
+    parser.add_argument("--e2-checkpoint", type=Path)
+    parser.add_argument("--e4-checkpoint", type=Path)
     parser.add_argument("--predictions-output", type=Path, required=True)
     parser.add_argument("--summary-output", type=Path, required=True)
     args = parser.parse_args()
@@ -61,8 +67,14 @@ def main() -> None:
     image_names = manifest.loc[test_mask, "image_name"].tolist()
     apex = manifest.loc[test_mask, APEX_COLUMNS].to_numpy(np.float64)
 
+    checkpoints = [("E1", args.e1_checkpoint), ("E3", args.e3_checkpoint)]
+    checkpoints.extend(
+        (name, checkpoint)
+        for name, checkpoint in (("E2", args.e2_checkpoint), ("E4", args.e4_checkpoint))
+        if checkpoint is not None
+    )
     models = {}
-    for name, checkpoint in (("E1", args.e1_checkpoint), ("E3", args.e3_checkpoint)):
+    for name, checkpoint in checkpoints:
         model, config = load_model(checkpoint, device)
         median = np.asarray(config["apex_train_median"])
         scale = np.asarray(config["apex_train_iqr"])
@@ -135,10 +147,7 @@ def main() -> None:
         "stochastic_mask_seeds": list(stochastic_seeds),
         "manifest_sha256": sha256(args.manifest),
         "feature_cache_sha256": sha256(args.features),
-        "checkpoint_sha256": {
-            "E1": sha256(args.e1_checkpoint),
-            "E3": sha256(args.e3_checkpoint),
-        },
+        "checkpoint_sha256": {name: sha256(checkpoint) for name, checkpoint in checkpoints},
         "per_run_metrics": metrics,
         "aggregate_metrics": aggregate_records,
         "predictions_path": str(args.predictions_output.resolve()),

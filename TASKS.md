@@ -27,12 +27,12 @@ Legend: `TODO`, `IN_PROGRESS`, `DONE`, `FAILED`, `BLOCKED`, `NOT_APPLICABLE`. Ev
 ## Phase 4 — controlled extensions
 
 - [x] **G4-001 DONE** E3 with 50% record-level metadata dropout completed; test 0.83450/0.83452/9.2534. Missingness curve showed no robustness advantage over E1. Evidence: `evidence/e3_frozen_r50_s20261109.json`, `evidence/missingness_e1_e3_s20261109.json`.
-- [ ] **G4-002 IN_PROGRESS** Execute E2 gated fusion matched ablation.
-- [ ] **G4-003 TODO** Execute E4 gated plus dropout matched ablation.
+- [x] **G4-002 DONE** E2 gated fusion completed; test SRCC/PLCC/MAE 0.83602/0.83779/9.1179. Evidence: `evidence/e2_frozen_r50_s20261109.json`.
+- [x] **G4-003 DONE** E4 gated plus 50% metadata dropout completed; test 0.83208/0.83337/9.3265. Dropout reduced full- and missing-metadata performance. Evidence: `evidence/e4_frozen_r50_s20261109.json`, `evidence/missingness_all_s20261109.json`.
 
 ## Phase 5 — analysis
 
-- [ ] **G5-001 TODO** Missingness curves, justified capture-condition groups, paired bootstrap, error analysis, and figures.
+- [ ] **G5-001 IN_PROGRESS** Missingness curves complete; paired bootstrap, justified capture-condition groups, error analysis, and figures remain.
 
 ## Phase 6 — deliverable
 
