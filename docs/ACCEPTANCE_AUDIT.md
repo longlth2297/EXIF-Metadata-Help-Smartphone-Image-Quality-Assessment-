@@ -43,8 +43,8 @@
 
 - README and experiment report contain setup, reproduction, results, provenance, figures, citations, caveats, and evidence paths.
 - Tests and final audit commands are rerun before handoff.
-- GitHub push is unavailable because no remote exists and `gh` is absent; local history is complete.
-- Kaggle summary, log, and checkpoint were downloaded and hash-verified. GitHub publication remains optional because no remote is configured.
+- GitHub `origin` is configured and `main` was pushed successfully; the upstream branch matches the verified local commit.
+- Kaggle summary, log, and checkpoint were downloaded and hash-verified.
 
 ## Minimum viable research: PASS
 

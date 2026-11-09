@@ -43,4 +43,5 @@
 | 2026-11-09T07:15:53Z | Kaggle GPU smoke v1 submitted | EXECUTION_VERIFIED | Kernel version 1 pushed with GPU enabled and private verified dataset attached; current status RUNNING | `longltrnhong/spaq-exif-robustness-smoke` |
 | 2026-11-09T07:28:45Z | Kaggle smoke v1 failed cleanly at explicit timeout | EXECUTION_VERIFIED | Status `CANCEL_ACKNOWLEDGED`; full 11,125-file mount hash exceeded 600 seconds and produced no output | Kernel v1 status/log query |
 | 2026-11-09T07:28:45Z | Kaggle GPU smoke v2 completed and outputs were retrieved | EXECUTION_VERIFIED | Tesla T4; 15.64 GB VRAM; manifest and 300-image tree hashes match; 11.09 s inference; 2.39 s/20 steps; 580 MB peak; reload/resume pass | `evidence/kaggle_smoke_v2.json`, `artifacts/kaggle_download/v2/` |
+| 2026-11-09T10:07:23Z | Completed repository pushed to GitHub | EXECUTION_VERIFIED | `main` pushed and configured to track `origin/main`; remote head matched commit `f77f1f31ebc95ac25860123bd1080a1d674bf20e` before ledger update | `https://github.com/longlth2297/EXIF-Metadata-Help-Smartphone-Image-Quality-Assessment-.git` |
 

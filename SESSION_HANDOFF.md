@@ -1,7 +1,7 @@
 # SESSION HANDOFF
 
-**Updated UTC:** 2026-11-09T07:28:45Z
-**Repo path/commit:** `D:\HCMUS\Year2\Scientific Method\SC\spaq-exif-robustness` / `57b3ee3dc5a352fea19a9441332a6e78d2db896e`
+**Updated UTC:** 2026-11-09T10:07:23Z
+**Repo path/commit:** `D:\HCMUS\Year2\Scientific Method\SC\spaq-exif-robustness` / `f77f1f31ebc95ac25860123bd1080a1d674bf20e`
 **Most advanced completed gate:** G6
 **Active Kaggle kernel/version/status:** `longltrnhong/spaq-exif-robustness-smoke` / v2 / COMPLETE
 **Last valid checkpoint:** `artifacts/runs/e2_frozen_r50_s20261109/best.pt`
@@ -40,7 +40,7 @@
 ## Failed/blocked steps
 
 - `python --version` resolves to a nonfunctional Windows Store alias; use `py`.
-- `gh` is absent and no Git remote exists; publication is optional.
+- `gh` is absent, but HTTPS authentication succeeded and `main` tracks GitHub `origin/main`.
 - Source row `03461.jpg` contains exposure `1,000,000`, while embedded exposure is invalid/non-finite. Never invent a replacement; retain the author's distinct APEX shutter value with provenance.
 
 ## Data provenance and frozen split references
@@ -53,8 +53,8 @@
 ## Exact next commands
 
 1. No required research work remains.
-2. If desired, install/authenticate `gh` and create a private remote.
-3. Keep Kaggle dataset/kernel private unless visibility change is explicitly requested.
+2. Keep Kaggle dataset/kernel private unless visibility change is explicitly requested.
+3. Use the configured `origin/main` upstream for future commits.
 
 ## Warnings
 

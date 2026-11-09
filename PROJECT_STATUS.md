@@ -1,14 +1,14 @@
 # PROJECT STATUS
 
-**Updated UTC:** 2026-11-09T07:28:45Z
+**Updated UTC:** 2026-11-09T10:07:23Z
 **Phase:** Phase 6 — COMPLETE
 **Last successful gate:** G6
-**Git commit / remote:** `57b3ee3dc5a352fea19a9441332a6e78d2db896e` / NONE
+**Git commit / remote:** `f77f1f31ebc95ac25860123bd1080a1d674bf20e` / `origin` (GitHub)
 **Kaggle kernel/version/status:** `longltrnhong/spaq-exif-robustness-smoke` / v2 / COMPLETE
 
 ## Current objective
 
-Preserve the completed reproducible research package; optional next step is a private GitHub remote.
+Preserve the completed reproducible research package; `main` now tracks the GitHub `origin/main` branch.
 
 ## Execution-verified achievements
 
@@ -45,11 +45,11 @@ Preserve the completed reproducible research package; optional next step is a pr
 
 ## Current task
 
-- All G0-G6 research gates are complete. GitHub publication remains optional and no remote is configured.
+- All G0-G6 research gates are complete and the repository is pushed to GitHub.
 
 ## Actual blockers
 
-- GitHub remote creation currently requires installing/authenticating `gh` or configuring another safe authenticated route.
+- No active blocker remains.
 
 ## Observed results
 
@@ -57,9 +57,9 @@ G0-G6 ARE COMPLETE. THE KAGGLE GPU SMOKE IS EXECUTION-VERIFIED AND RETRIEVED; TH
 
 ## Next actions
 
-1. Optionally install/authenticate GitHub CLI and create a private remote.
-2. Keep the Kaggle dataset/kernel private unless the user explicitly changes visibility.
-3. For future work, repeat training seeds before making stronger optimization-variance claims.
+1. Keep the Kaggle dataset/kernel private unless the user explicitly changes visibility.
+2. For future work, repeat training seeds before making stronger optimization-variance claims.
+3. Push future changes through the configured `origin/main` upstream.
 
 ## Relevant evidence and file paths
 
