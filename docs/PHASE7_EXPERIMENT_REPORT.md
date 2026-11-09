@@ -31,7 +31,11 @@ For H2, intact correct-pair metadata exceeded the mean of five whole-record perm
 
 H4 was executed on Kaggle Tesla T4 with identical ImageNet-V2 weights, split, seed, crops, 256-unit head, and validation selection. The frozen arm selected epoch 5 and obtained validation/test SRCC 0.82977/0.85134. The layer4-fine-tuned arm selected epoch 1 and obtained 0.87023/0.88187. Test SRCC therefore increased by 0.03052 and MAE decreased by 0.57463 in this matched run. Trainable parameters increased from 524,801 to 15,489,537 and peak allocated GPU memory from 530 MB to 711 MB. Because this comparison has one seed, it is exploratory evidence rather than a confirmatory general claim.
 
-Stronger IQA baselines remain deferred until the cached-head Kaggle replication and Phase 7 release validation are complete.
+The independent Kaggle cached-head replication trained all nine E0/E1/E2 seed combinations. Its mean E1-E0 delta SRCC is -0.000057 (seedwise +0.000622, -0.000847, +0.000053); additive EXIF is again not sign-consistent. Mean E2-E1 is -0.001646 (seedwise -0.001906, +0.001141, -0.004172), so the registered H3 rule remains unsupported. The Kaggle software stack differs from local execution; this is an independent-environment replication, not a bitwise reproduction.
+
+## Stronger IQA baseline exploration
+
+Only after H1-H4 were tested, the official IQA-PyTorch 0.1.16 `topiq_nr` checkpoint was run. The model card identifies this default as KonIQ-trained; the SPAQ-trained variant was explicitly rejected because it would overlap the evaluation dataset. One affine score-to-MOS mapping was fit on the 1,111-image validation split, then the 2,228-image test split was inferred once. Validation SRCC/PLCC/MAE was 0.80658/0.81070/9.5408 and test was 0.82005/0.82685/9.0969. This is cross-dataset exploratory inference, not a matched training-budget comparison. TOPIQ's method and official code are documented by the [TIP paper](https://doi.org/10.1109/TIP.2024.3378466) and [IQA-PyTorch model card](https://github.com/chaofengc/IQA-PyTorch/blob/main/docs/ModelCard.md).
 
 ## Evidence index
 
@@ -40,3 +44,5 @@ Stronger IQA baselines remain deferred until the cached-head Kaggle replication 
 - `evidence/phase7_multiseed_metrics.csv`, `evidence/phase7_multiseed_contrasts.csv`, `evidence/phase7_metadata_diagnostic_metrics.csv`: machine-readable rows behind the summaries.
 - `docs/figures/phase7_*.png`: generated views whose SHA-256 values are recorded in the summary JSON files.
 - `evidence/phase7_kaggle_backbone_v1.json`: Kaggle kernel/version, full run summary, recomputed metrics, checkpoint-state audit, and hashes of all eight downloaded files.
+- `evidence/phase7_kaggle_cached_v1.json`: nine-run Kaggle summary, 29 downloaded-file hashes, frozen test-contract verification, recomputed metrics, and cross-seed contrasts.
+- `evidence/phase7_topiq_nr_koniq.json`: official checkpoint hash, validation-only calibration, exact prediction hashes, runtime, environment, and cross-dataset limitations.

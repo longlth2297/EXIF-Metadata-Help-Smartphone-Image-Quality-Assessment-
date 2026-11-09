@@ -1,10 +1,10 @@
 # When Does EXIF Help Smartphone Image Quality Assessment?
 
-This repository is an executed, resource-adapted study of EXIF fusion and metadata missingness on SPAQ. It compares five matched MOS regressors on a repeated-content-safe 70/10/20 split of 11,125 real images. The controlled result is modest: additive EXIF (E1) improves the image-only baseline (E0) under paired test-image resampling, but a larger gated fusion model (E2) does not reliably improve E1, and metadata dropout (E3/E4) does not help.
+This repository is an executed, resource-adapted study of when EXIF helps image-quality prediction on SPAQ. It preserves a five-model frozen-feature baseline and extends it with three training seeds, correct-pair permutation, feature-group and missingness diagnostics, capture-condition subgroups, a matched backbone-tuning experiment, and independent Kaggle GPU replication. The main finding is cautionary: EXIF effects are small and seed-dependent, while gated fusion is not consistently better than additive fusion.
 
 This is not a claim of reproducing the original SPAQ training numbers. The study uses one frozen ImageNet-V2 ResNet-50 feature cache so all variants can be executed and controlled within available compute. The original SPAQ and TOPIQ paper values remain literature references only.
 
-## Verified results
+## Preserved Baseline v0.1
 
 All rows use seed `20261109`, split SHA-256 `91a8d1...a108`, manifest SHA-256 `abff8b...5800d`, and frozen feature cache SHA-256 `b639bb...975ed`.
 
@@ -23,6 +23,27 @@ The prespecified E1-E0 paired difference is +0.00565 SRCC with 95% bootstrap int
 At 100% missing test EXIF, SRCC is 0.83579/0.83290/0.83432/0.82813 for E1/E2/E3/E4. Training-time metadata dropout did not improve either fusion family.
 
 ![Metadata missingness](docs/figures/missingness_srcc.png)
+
+Baseline v0.1 is immutable at Git tag `baseline-v0.1`. Every E0-E4 config, checkpoint, log, prediction, manifest, and feature-cache hash is re-audited in `evidence/phase7_baseline_v01_audit.json`. These are frozen ResNet-50 features, not end-to-end fine-tuning.
+
+## Phase 7 findings
+
+The local three-seed E1-E0 mean test delta SRCC is +0.001878, with seedwise values +0.005649, -0.003524, and +0.003508. High-ISO, long-exposure, and night subsets have larger mean deltas, but none stays positive across all three seeds; H1 therefore fails its registered support rule.
+
+Correct image-EXIF pairing beats five fixed whole-record permutations by +0.000351 SRCC for E1 and +0.002593 for E2, positive at every training seed. H2 meets its registered rule, but the effect is small and shows pairing sensitivity rather than causal or out-of-dataset utility. Inference-only feature-group tests are diagnostics, not retrained causal ablations.
+
+E2-E1 mean delta SRCC is -0.001317 locally and negative at all three seeds. An independent Kaggle Tesla T4 retraining gives mean E2-E1 -0.001646 and mixed signs. H3 is not supported in either environment, so the simpler additive fusion remains preferable.
+
+The exploratory one-seed matched image-pipeline comparison on Kaggle gives:
+
+| Backbone arm | Trainable parameters | Validation SRCC | Test SRCC | Test PLCC | Test MAE |
+|---|---:|---:|---:|---:|---:|
+| Frozen ResNet-50 | 524,801 | 0.82977 | 0.85134 | 0.85281 | 8.7603 |
+| Fine-tuned `layer4` | 15,489,537 | 0.87023 | 0.88187 | 0.88455 | 8.1856 |
+
+Fine-tuning improves test SRCC by 0.03052 in this matched run. Because H4 has one seed, it is exploratory and not a general backbone claim. See [Phase 7 report](docs/PHASE7_EXPERIMENT_REPORT.md) and the hash-linked evidence files.
+
+After the core hypotheses were complete, the official KonIQ-trained `topiq_nr` checkpoint was evaluated as an exploratory cross-dataset baseline. A validation-only affine MOS calibration followed by one test inference produced SRCC/PLCC/MAE 0.82005/0.82685/9.0969. This is not a matched-budget comparison and does not beat the SPAQ-trained heads. The `topiq_nr-spaq` checkpoint was deliberately excluded because training on SPAQ would contaminate the held-out comparison.
 
 ## Data provenance and license caution
 
@@ -72,13 +93,35 @@ foreach ($e in "E0","E1","E2","E3","E4") {
 
 E0-E4 use validation SRCC for early stopping and open the test set only for final prediction. Configs, checkpoints, logs, and per-image predictions are retained under ignored `artifacts/runs/`; hashes are in tracked evidence JSON.
 
+Phase 7 local aggregation and diagnostics are reproduced with:
+
+```powershell
+$py = ".\.venv312\Scripts\python.exe"
+& $py scripts\analyze_phase7_multiseed.py
+& $py scripts\evaluate_phase7_metadata.py
+& $py scripts\verify_phase7_kaggle_backbone.py
+& $py scripts\verify_phase7_kaggle_cached.py
+& $py -m pip install -e ".[iqa]"
+& $py scripts\evaluate_topiq_crossdataset.py
+```
+
+Standalone Kaggle runners and metadata templates are under `kaggle/phase7_backbone/` and `kaggle/phase7_cached/`. They verify manifest/cache/weight hashes before training and produce validation-selected checkpoints, epoch logs, and held-out predictions.
+
 ## Kaggle execution
 
-Private kernel `longltrnhong/spaq-exif-robustness-smoke` version 2 completed on a Tesla T4. It verified the frozen manifest and exact 300-image smoke sample, measured 11.09 seconds for inference and 2.39 seconds for 20 training steps, used 580 MB peak allocated GPU memory, and passed checkpoint reload plus optimizer resume. Retrieved artifact hashes are in `evidence/kaggle_smoke_v2.json`; credentials and large outputs remain ignored.
+Three private kernels completed on Tesla T4:
+
+- `longltrnhong/spaq-exif-robustness-smoke` v2: data/GPU/checkpoint smoke.
+- `longltrnhong/spaq-phase-7-matched-backbone-pair` v1: full frozen-versus-layer4 image training.
+- `longltrnhong/spaq-phase-7-cached-multiseed` v1: nine independent E0/E1/E2 training runs.
+
+All outputs were downloaded and independently checked against the frozen test IDs, labels, recorded metrics, checkpoints, logs, and SHA-256 values. Credentials and large outputs remain ignored; tracked verification is in `evidence/phase7_kaggle_backbone_v1.json` and `evidence/phase7_kaggle_cached_v1.json`.
 
 ## Repository map
 
 - [Experiment report](docs/EXPERIMENT_REPORT.md): methods, results, limitations, and citations.
+- [Research direction](docs/RESEARCH_DIRECTION.md): original SPAQ contribution, project difference, novelty boundaries, and hypotheses.
+- [Phase 7 report](docs/PHASE7_EXPERIMENT_REPORT.md): multiseed, reliability, subgroup, and backbone results.
 - [Acceptance audit](docs/ACCEPTANCE_AUDIT.md): gate-by-gate evidence and remaining blockers.
 - `evidence/`: execution summaries, paired tables, hashes, and environment evidence.
 - `scripts/`: data audits, split/manifest construction, training, robustness, and analysis.
@@ -87,9 +130,10 @@ Private kernel `longltrnhong/spaq-exif-robustness-smoke` version 2 completed on 
 
 ## Main limitations
 
-- One training seed; bootstrap intervals do not capture optimization variability.
+- Three cached-head seeds quantify limited optimization variability; they are not a population-level random-effects study.
 - Frozen, downsampled/re-encoded visual inputs; not a faithful SPAQ end-to-end reproduction.
+- H4 layer4 fine-tuning has one seed and is exploratory.
 - No defensible device-OOD claim: raw make/model aliases do not form a clean 66-phone identifier.
 - Capture-condition subgroups are exploratory and overlap.
-- Kaggle smoke establishes execution readiness, not a second training seed or an end-to-end reproduction of the original SPAQ model.
-- TOPIQ is a related Q1 reference, not an executed matched comparator because protocol/checkpoint overlap would make the comparison misleading.
+- Kaggle and local software stacks differ, so exact numerical equality is neither expected nor claimed; conclusions are compared by registered decision rules.
+- The executed KonIQ-trained TOPIQ result is cross-dataset exploratory evidence, not a matched-budget comparator; the SPAQ-trained TOPIQ checkpoint remains excluded.

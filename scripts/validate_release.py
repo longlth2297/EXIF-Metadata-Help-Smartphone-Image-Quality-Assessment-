@@ -48,6 +48,10 @@ def main() -> None:
         "e2_frozen_r50_s20261109.json", "e3_frozen_r50_s20261109.json",
         "e4_frozen_r50_s20261109.json", "missingness_all_s20261109.json",
         "analysis_summary_s20261109.json", "kaggle_smoke_v2.json",
+        "phase7_baseline_v01_audit.json", "phase7_multiseed_summary.json",
+        "phase7_metadata_diagnostics.json", "phase7_kaggle_backbone_v1.json",
+        "phase7_kaggle_cached_v1.json",
+        "phase7_topiq_nr_koniq.json",
     ]
     checks["evidence_status"] = {}
     for name in evidence_names:
@@ -78,12 +82,45 @@ def main() -> None:
         verified_kaggle_outputs[name] = observed
     checks["verified_kaggle_outputs"] = verified_kaggle_outputs
 
+    phase7_kaggle_sets = {
+        "phase7_kaggle_backbone_v1.json": ROOT / "artifacts/kaggle_download/phase7_backbone_v1",
+        "phase7_kaggle_cached_v1.json": ROOT / "artifacts/kaggle_download/phase7_cached_v1",
+    }
+    checks["verified_phase7_kaggle_outputs"] = {}
+    for evidence_name, artifact_root in phase7_kaggle_sets.items():
+        payload = json.loads((ROOT / "evidence" / evidence_name).read_text(encoding="utf-8"))
+        verified = {}
+        for relative, expected in payload["downloaded_artifacts"].items():
+            path = artifact_root / relative
+            observed = sha256(path)
+            if observed != expected:
+                raise AssertionError(f"{evidence_name}: output hash mismatch: {relative}")
+            verified[relative] = observed
+        checks["verified_phase7_kaggle_outputs"][evidence_name] = len(verified)
+
+    topiq = json.loads((ROOT / "evidence/phase7_topiq_nr_koniq.json").read_text(encoding="utf-8"))
+    topiq_verified = {}
+    for artifact in topiq["artifacts"].values():
+        path = ROOT / artifact["path"].replace("\\", "/")
+        observed = sha256(path)
+        if observed != artifact["sha256"]:
+            raise AssertionError(f"TOPIQ output hash mismatch: {artifact['path']}")
+        topiq_verified[artifact["path"]] = observed
+    topiq_test = pd.read_csv(ROOT / topiq["artifacts"]["test_predictions"]["path"].replace("\\", "/"))
+    expected_test_ids = manifest.loc[manifest.split == "test"].sort_values("image_name").image_name.tolist()
+    if topiq_test.image_name.tolist() != expected_test_ids or len(topiq_test) != 2228:
+        raise AssertionError("TOPIQ test predictions differ from the frozen test contract")
+    checks["verified_topiq_outputs"] = topiq_verified
+
     ignored_targets = [
         "data/raw/q_align/spaq.tar",
         "data/raw/iqa_pytorch_datasets/spaq.tgz",
         "artifacts/features/spaq_resnet50_imagenet_v2_abff8b1a.npz",
         "artifacts/runs/e1_frozen_r50_s20261109/best.pt",
         "kaggle/kernel/kernel-metadata.json",
+        "kaggle/phase7_backbone/kernel-metadata.json",
+        "kaggle/phase7_cached/kernel-metadata.json",
+        "artifacts/kaggle_phase7_assets/resnet50-11ad3fa6.pth",
     ]
     ignored_input = ("\n".join(ignored_targets) + "\n").encode("utf-8")
     ignored = subprocess.run(
@@ -97,6 +134,8 @@ def main() -> None:
     required_docs = [
         "README.md", "docs/EXPERIMENT_REPORT.md", "docs/ACCEPTANCE_AUDIT.md",
         "docs/KAGGLE_RUNBOOK.md", "PROJECT_STATUS.md", "STATE.json", "SESSION_HANDOFF.md",
+        "docs/RESEARCH_DIRECTION.md", "docs/BASELINE_VS_EXTENSION.md",
+        "docs/PHASE7_EXPERIMENT_REPORT.md",
     ]
     missing_docs = [name for name in required_docs if not (ROOT / name).is_file()]
     checks["missing_required_docs"] = missing_docs
