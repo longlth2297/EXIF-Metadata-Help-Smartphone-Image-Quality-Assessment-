@@ -24,6 +24,8 @@ from torchvision.transforms import v2
 
 WORKING = Path("/kaggle/working")
 INPUT = Path("/kaggle/input")
+EXPECTED_MANIFEST_SHA256 = "abff8b1a5f7d2e74d0c8874655fbe40d5e75de75bf61e65753c7085cee15800d"
+EXPECTED_IMAGE_TREE_SHA256 = "50d85e3588be9582bcc03ead9d96bef9e24c22652715b507fda6f7f64b2ecf24"
 
 
 def sha256(path: Path) -> str:
@@ -59,27 +61,56 @@ def locate_one(pattern: str) -> Path:
     return matches[0]
 
 
+def image_tree_sha256(image_root: Path) -> tuple[str, int]:
+    """Hash sorted filename + per-file digest, independent of container format."""
+    images = sorted(image_root.glob("*.jpg"))
+    digest = hashlib.sha256()
+    for path in images:
+        digest.update(path.name.encode("utf-8"))
+        digest.update(b"\0")
+        digest.update(bytes.fromhex(sha256(path)))
+    return digest.hexdigest(), len(images)
+
+
 def main() -> None:
     torch.manual_seed(20261109)
-    archive_path = locate_one("**/spaq.tar")
     manifest_path = locate_one("**/manifest.parquet")
+    manifest_hash = sha256(manifest_path)
+    if manifest_hash != EXPECTED_MANIFEST_SHA256:
+        raise RuntimeError(f"Manifest hash mismatch: {manifest_hash}")
     manifest = pd.read_parquet(manifest_path)
     sample = manifest.loc[manifest.split == "train"].sort_values("image_name").head(300)
-    image_root = WORKING / "smoke_images"
-    image_root.mkdir(exist_ok=True)
-    extract_started = time.perf_counter()
-    with tarfile.open(archive_path, "r:") as archive:
-        for image_name in sample.image_name:
-            target = image_root / image_name
-            if target.is_file():
-                continue
-            source = archive.extractfile(f"spaq/{image_name}")
-            if source is None:
-                raise RuntimeError(f"Missing archive member {image_name}")
-            temporary = target.with_suffix(".tmp")
-            temporary.write_bytes(source.read())
-            os.replace(temporary, target)
-    extract_seconds = time.perf_counter() - extract_started
+    archive_matches = sorted(INPUT.glob("**/spaq.tar"))
+    if len(archive_matches) == 1:
+        input_mode = "tar_archive"
+        archive_path = archive_matches[0]
+        image_root = WORKING / "smoke_images"
+        image_root.mkdir(exist_ok=True)
+        extract_started = time.perf_counter()
+        with tarfile.open(archive_path, "r:") as archive:
+            for image_name in sample.image_name:
+                target = image_root / image_name
+                source = archive.extractfile(f"spaq/{image_name}")
+                if source is None:
+                    raise RuntimeError(f"Missing archive member {image_name}")
+                temporary = target.with_suffix(".tmp")
+                temporary.write_bytes(source.read())
+                os.replace(temporary, target)
+        extract_seconds = time.perf_counter() - extract_started
+        image_tree_hash = None
+        input_image_count = None
+    else:
+        input_mode = "kaggle_expanded_tar"
+        first_image = locate_one("**/00001.jpg")
+        image_root = first_image.parent
+        integrity_started = time.perf_counter()
+        image_tree_hash, input_image_count = image_tree_sha256(image_root)
+        extract_seconds = 0.0
+        integrity_seconds = time.perf_counter() - integrity_started
+        if input_image_count != 11125 or image_tree_hash != EXPECTED_IMAGE_TREE_SHA256:
+            raise RuntimeError(
+                f"Expanded image integrity mismatch: count={input_image_count}, hash={image_tree_hash}"
+            )
 
     dataset = Images(sample, image_root)
     loader = DataLoader(dataset, batch_size=16, shuffle=False, num_workers=2, pin_memory=True)
@@ -129,6 +160,16 @@ def main() -> None:
     reloaded.fc = nn.Linear(reloaded.fc.in_features, 1)
     payload = torch.load(checkpoint, map_location="cpu", weights_only=False)
     reloaded.load_state_dict(payload["model"])
+    reloaded.to(device).train()
+    resumed_optimizer = torch.optim.AdamW(reloaded.parameters(), lr=1e-4)
+    resumed_optimizer.load_state_dict(payload["optimizer"])
+    resume_images, resume_targets = next(iter(train_loader))
+    resumed_optimizer.zero_grad(set_to_none=True)
+    resume_predictions = reloaded(resume_images.to(device)).squeeze(1)
+    resume_loss = criterion(resume_predictions, resume_targets.to(device))
+    resume_loss.backward()
+    resumed_optimizer.step()
+    torch.cuda.synchronize()
 
     disk = shutil.disk_usage(WORKING)
     summary = {
@@ -142,9 +183,12 @@ def main() -> None:
         "gpu_peak_allocated_bytes": torch.cuda.max_memory_allocated(),
         "working_disk_total_bytes": disk.total,
         "working_disk_free_bytes": disk.free,
-        "archive_path": str(archive_path),
-        "archive_bytes": archive_path.stat().st_size,
-        "manifest_sha256": sha256(manifest_path),
+        "input_mode": input_mode,
+        "input_image_count": input_image_count,
+        "image_tree_sha256": image_tree_hash,
+        "expected_image_tree_sha256": EXPECTED_IMAGE_TREE_SHA256,
+        "integrity_seconds": integrity_seconds if input_mode == "kaggle_expanded_tar" else None,
+        "manifest_sha256": manifest_hash,
         "sample_count": 300,
         "extract_seconds": extract_seconds,
         "inference_300_seconds": inference_seconds,
@@ -153,6 +197,10 @@ def main() -> None:
         "train_loss_last": losses[-1],
         "checkpoint_sha256": sha256(checkpoint),
         "checkpoint_reload_succeeded": True,
+        "optimizer_resume_step_succeeded": True,
+        "resume_step_loss": float(resume_loss.detach().cpu()),
+        "projected_11125_inference_seconds": inference_seconds * (11125 / 300),
+        "projection_with_20_percent_buffer_seconds": inference_seconds * (11125 / 300) * 1.2,
     }
     (WORKING / "smoke_summary.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
     print(json.dumps(summary, indent=2))

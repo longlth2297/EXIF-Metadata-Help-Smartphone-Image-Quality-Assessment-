@@ -23,6 +23,7 @@ data/processed/*.parquet
 artifacts/checkpoints/
 artifacts/features/
 artifacts/kaggle_download/
+artifacts/kaggle_dataset_upload/
 artifacts/runs/
 *.pt
 *.pth
